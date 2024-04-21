@@ -1,9 +1,25 @@
 import {
-    Association, DataTypes, HasManyAddAssociationMixin, HasManyCountAssociationsMixin,
-    HasManyCreateAssociationMixin, HasManyGetAssociationsMixin, HasManyHasAssociationMixin,
-    HasManySetAssociationsMixin, HasManyAddAssociationsMixin, HasManyHasAssociationsMixin,
-    HasManyRemoveAssociationMixin, HasManyRemoveAssociationsMixin, Model, ModelDefined, Optional,
-    Sequelize, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute, ForeignKey,
+    Association,
+    DataTypes,
+    HasManyAddAssociationMixin,
+    HasManyCountAssociationsMixin,
+    HasManyCreateAssociationMixin,
+    HasManyGetAssociationsMixin,
+    HasManyHasAssociationMixin,
+    HasManySetAssociationsMixin,
+    HasManyAddAssociationsMixin,
+    HasManyHasAssociationsMixin,
+    HasManyRemoveAssociationMixin,
+    HasManyRemoveAssociationsMixin,
+    Model,
+    ModelDefined,
+    Optional,
+    Sequelize,
+    InferAttributes,
+    InferCreationAttributes,
+    CreationOptional,
+    NonAttribute,
+    ForeignKey,
 } from 'sequelize';
 import { DataModel as UserModel } from '../../user_admin/models/user_model';
 
@@ -14,7 +30,6 @@ type Infer = InferAttributes<DataModel>;
 type InferCreation = InferCreationAttributes<DataModel>;
 
 class DataModel extends Model<Infer, InferCreation> {
-
     declare id: CreationOptional<number>;
     declare title: string;
     declare user_id: ForeignKey<UserModel['id']>;
@@ -24,17 +39,16 @@ class DataModel extends Model<Infer, InferCreation> {
 }
 
 function init(sequelize: Sequelize) {
-
     DataModel.init(
         {
             id: {
                 type: DataTypes.INTEGER.UNSIGNED,
                 autoIncrement: true,
-                primaryKey: true
+                primaryKey: true,
             },
             title: {
                 type: new DataTypes.STRING(128),
-                allowNull: false
+                allowNull: false,
             },
             user_id: {
                 type: DataTypes.BIGINT.UNSIGNED,
@@ -48,14 +62,10 @@ function init(sequelize: Sequelize) {
             modelName: model_name,
             sequelize,
             underscored: true,
-        }
+        },
     );
 
     return DataModel;
 }
 
-export {
-    init,
-    DataModel,
-}
-
+export { init, DataModel };
