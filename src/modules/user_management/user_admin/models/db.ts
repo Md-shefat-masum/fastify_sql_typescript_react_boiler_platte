@@ -1,6 +1,9 @@
-import { Model, Sequelize } from 'sequelize';
+import {
+    // Model,
+    Sequelize,
+} from 'sequelize';
 import * as user_model from './user_model';
-import * as project_model from '../../user_admin copy/models/project_model'
+import * as project_model from '../../user_admin copy/models/project_model';
 require('dotenv').config();
 
 let host = process?.env.DB_HOST || '';
@@ -9,12 +12,14 @@ let user = process?.env.DB_USER || '';
 let pass = process?.env.DB_PASS || '';
 let database = process?.env.DB_DATABASE || '';
 
-const sequelize = new Sequelize(`mysql://${user}:${pass}@${host}:${post}/${database}`);
+const sequelize = new Sequelize(
+    `mysql://${user}:${pass}@${host}:${post}/${database}`,
+);
 
 interface models {
-    User: typeof user_model.DataModel,
-    Project: typeof project_model.DataModel,
-    sequelize: Sequelize,
+    User: typeof user_model.DataModel;
+    Project: typeof project_model.DataModel;
+    sequelize: Sequelize;
 }
 const db = async function (): Promise<models> {
     const User = user_model.init(sequelize);
@@ -25,21 +30,21 @@ const db = async function (): Promise<models> {
     Project.hasOne(User, {
         sourceKey: 'user_id',
         foreignKey: 'id',
-        as: 'user'
+        as: 'user',
     });
 
     User.hasMany(Project, {
         sourceKey: 'id',
         foreignKey: 'user_id',
-        as: 'projects'
+        as: 'projects',
     });
 
-    let models:models = {
+    let models: models = {
         User,
         Project,
-        
-        sequelize
-    }
+
+        sequelize,
+    };
     return models;
-}
+};
 export default db;
