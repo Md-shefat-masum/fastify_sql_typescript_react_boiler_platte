@@ -1,39 +1,41 @@
-'use strict'
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-const fs = require('node:fs')
-module.exports = async function (fastify: FastifyInstance, opts: {}) {
+'use strict';
+import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+// const fs = require('node:fs');
+module.exports = async function (fastify: FastifyInstance) {
     fastify
         .get('/', async (req: FastifyRequest, reply: FastifyReply) => {
             return reply.view('index.ejs', { text: 'Hello EJS!' });
         })
         .get('/about', async function (request, reply) {
-            return (reply as any).cookie('baz', 'baz')
-                .view('about.ejs', {
-                    data: "about page"
-                });
+            return (reply as any).cookie('baz', 'baz').view('about.ejs', {
+                data: 'about page',
+            });
         })
-        .post('/c', async function (req: FastifyRequest, res) {
-            const { body, validationResult } = require("express-validator");
-            await body("title")
+        .post('/c', async function (req: FastifyRequest) {
+            const { body, validationResult } = require('express-validator');
+            await body('title')
                 .not()
                 .isEmpty()
-                .withMessage("the title field is required")
+                .withMessage('the title field is required')
                 .run(req);
 
             let bodys: {
                 'image[]': {
-                    data: string,
-                    name: string,
-                    ext: string,
-                }[],
+                    data: string;
+                    name: string;
+                    ext: string;
+                }[];
             } = (req as any).body;
 
             if (bodys['image[]'].length) {
                 // console.log(bodys['image[]'][0]);
-                fastify.upload(bodys['image[]'][0], "uploads/users/" + bodys['image[]'][0].name);
+                fastify.upload(
+                    bodys['image[]'][0],
+                    'uploads/users/' + bodys['image[]'][0].name,
+                );
             }
 
             let result = validationResult(req);
-            return { d: "uploads/", errors: result.array() };
-        })
-}
+            return { d: 'uploads/', errors: result.array() };
+        });
+};
