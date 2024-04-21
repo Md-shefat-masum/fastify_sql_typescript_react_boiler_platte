@@ -1,7 +1,11 @@
-import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import Fastify, {
+    FastifyInstance,
+    FastifyReply,
+    FastifyRequest,
+} from 'fastify';
 import path from 'path';
-import view from "@fastify/view";
-import { sequelize } from "./bootstrap/db.sql";
+import view from '@fastify/view';
+import { sequelize } from './bootstrap/db.sql';
 
 const AutoLoad = require('@fastify/autoload');
 const underPressure = require('@fastify/under-pressure');
@@ -20,7 +24,9 @@ async function boot() {
     async function findAllRoutesFiles(dir: any) {
         let results: any = [];
         async function recursiveSearch(currentPath: any) {
-            const entries = await fsp.readdir(currentPath, { withFileTypes: true });
+            const entries = await fsp.readdir(currentPath, {
+                withFileTypes: true,
+            });
             for (let entry of entries) {
                 const fullPath = path.join(currentPath, entry.name);
                 if (entry.isDirectory()) {
@@ -35,13 +41,17 @@ async function boot() {
     }
 
     /** register routes */
-    await findAllRoutesFiles('./src/modules').then((files: string[]) => {
-        files.forEach((routes: string) => {
-            fastify.register(require(path.resolve(appDir, routes)), { prefix: 'api/v1' });
+    await findAllRoutesFiles('./src/modules')
+        .then((files: string[]) => {
+            files.forEach((routes: string) => {
+                fastify.register(require(path.resolve(appDir, routes)), {
+                    prefix: 'api/v1',
+                });
+            });
         })
-    }).catch(err => {
-        console.error('Error searching for route files:', err);
-    });
+        .catch((err) => {
+            console.error('Error searching for route files:', err);
+        });
 
     /** conver input files into buffer string */
     async function onFile(part: any) {
@@ -52,7 +62,7 @@ async function boot() {
                 part.value = {
                     data: await Buffer.from(buff, 'base64'),
                     name: part.filename,
-                    ext: "." + part.filename.split('.')[1],
+                    ext: '.' + part.filename.split('.')[1],
                 };
             }
         }
@@ -65,16 +75,16 @@ async function boot() {
             onFile,
             limits: {
                 fileSize: 1000000 * 10,
-            }
+            },
         })
         .register(AutoLoad, {
-            dir: path.join(__dirname, 'plugins')
+            dir: path.join(__dirname, 'plugins'),
         })
         .register(AutoLoad, {
-            dir: path.join(__dirname, 'routes')
+            dir: path.join(__dirname, 'routes'),
         })
         .register(require('@fastify/cookie'), {
-            secret: "fast#2$4@4!cokie02ms",
+            secret: 'fast#2$4@4!cokie02ms',
             hook: 'onRequest',
             parseOptions: {
                 httpOnly: true,
@@ -88,20 +98,25 @@ async function boot() {
             maxEventLoopUtilization: 0.98,
             message: 'Under pressure!',
             retryAfter: 50,
-            pressureHandler: (req: FastifyRequest, rep: FastifyReply, type: string, value: string) => {
+            pressureHandler: (
+                req: FastifyRequest,
+                rep: FastifyReply,
+                type: string,
+                value: string,
+            ) => {
                 if (type === underPressure.TYPE_HEAP_USED_BYTES) {
-                    fastify.log.warn(`too many heap bytes used: ${value}`)
+                    fastify.log.warn(`too many heap bytes used: ${value}`);
                 } else if (type === underPressure.TYPE_RSS_BYTES) {
-                    fastify.log.warn(`too many rss bytes used: ${value}`)
+                    fastify.log.warn(`too many rss bytes used: ${value}`);
                 }
                 // rep.send('out of memory')
             },
         })
         .register(view, {
             engine: {
-                ejs: require("ejs"),
+                ejs: require('ejs'),
             },
-            root: path.join(public_dir, "views")
+            root: path.join(public_dir, 'views'),
         })
         .register(require('@fastify/static'), {
             root: public_dir,
@@ -119,30 +134,25 @@ async function boot() {
             console.log('');
 
             request.raw.on('close', () => {
-
                 console.log('sequelize instance closed');
                 sequelize_instance.close();
 
                 console.log('');
                 console.log('-------------');
-
-            })
-        })
+            });
+        });
 
     try {
-        fastify.listen({ port: 5000 })
-            .then(() => {
-                console.log('Server is running on http://127.0.0.1:5000');
-            })
+        fastify.listen({ port: 5000 }).then(() => {
+            console.log('Server is running on http://127.0.0.1:5000');
+        });
     } catch (err) {
-        fastify.log.error(err)
-        process.exit(1)
+        fastify.log.error(err);
+        process.exit(1);
     }
 }
 
-sequelize()
-    .then((res: any = {}) => {
-        sequelize_instance = res.sequelize;
-        boot();
-    });
-
+sequelize().then((res: any = {}) => {
+    sequelize_instance = res.sequelize;
+    boot();
+});
