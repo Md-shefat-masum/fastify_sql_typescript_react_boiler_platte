@@ -1,5 +1,5 @@
-import { Model } from "sequelize";
-import db from "../models/db";
+import { Model } from 'sequelize';
+import db from '../models/db';
 
 async function all(): Promise<Model[]> {
     let models = await db();
