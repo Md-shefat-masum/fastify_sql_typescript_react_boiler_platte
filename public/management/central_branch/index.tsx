@@ -1,5 +1,3 @@
-console.log('hi');
-
 function t(a: string, b: string): string [] {
     let c: string[] = [
         a,
