@@ -1,14 +1,30 @@
 import {
-    Association, DataTypes, HasManyAddAssociationMixin, HasManyCountAssociationsMixin,
-    HasManyCreateAssociationMixin, HasManyGetAssociationsMixin, HasManyHasAssociationMixin,
-    HasManySetAssociationsMixin, HasManyAddAssociationsMixin, HasManyHasAssociationsMixin,
-    HasManyRemoveAssociationMixin, HasManyRemoveAssociationsMixin, Model, ModelDefined, Optional,
-    Sequelize, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute, ForeignKey,
+    // Association,
+    DataTypes,
+    // HasManyAddAssociationMixin,
+    // HasManyCountAssociationsMixin,
+    // HasManyCreateAssociationMixin,
+    // HasManyGetAssociationsMixin,
+    // HasManyHasAssociationMixin,
+    // HasManySetAssociationsMixin,
+    // HasManyAddAssociationsMixin,
+    // HasManyHasAssociationsMixin,
+    // HasManyRemoveAssociationMixin,
+    // HasManyRemoveAssociationsMixin,
+    Model,
+    // ModelDefined,
+    // Optional,
+    Sequelize,
+    InferAttributes,
+    InferCreationAttributes,
+    CreationOptional,
+    // NonAttribute,
+    // ForeignKey,
 } from 'sequelize';
 
 // import {DataModel as Project} from "./project_model"
-const tableName = "user_models";
-const modelName = "UserModel";
+const tableName = 'user_models';
+const modelName = 'UserModel';
 
 type Infer = InferAttributes<DataModel>;
 type InferCreation = InferCreationAttributes<DataModel>;
@@ -23,21 +39,20 @@ class DataModel extends Model<Infer, InferCreation> {
 }
 
 function init(sequelize: Sequelize) {
-
     DataModel.init(
         {
             id: {
                 type: DataTypes.INTEGER.UNSIGNED,
                 autoIncrement: true,
-                primaryKey: true
+                primaryKey: true,
             },
             name: {
                 type: new DataTypes.STRING(128),
-                allowNull: false
+                allowNull: false,
             },
             preferredName: {
                 type: new DataTypes.STRING(128),
-                allowNull: true
+                allowNull: true,
             },
             created_at: DataTypes.DATE,
             updated_at: DataTypes.DATE,
@@ -47,15 +62,10 @@ function init(sequelize: Sequelize) {
             modelName: modelName,
             sequelize, // passing the `sequelize` instance is required
             underscored: true,
-        }
+        },
     );
 
     return DataModel;
 }
 
-export {
-    init,
-    DataModel,
-}
-
-
+export { init, DataModel };
