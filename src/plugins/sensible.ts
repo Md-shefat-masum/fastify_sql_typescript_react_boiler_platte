@@ -1,16 +1,16 @@
-'use strict'
+'use strict';
 
-import { FastifyInstance } from "fastify"
+import { FastifyInstance } from 'fastify';
 
-const fp = require('fastify-plugin')
+const fp = require('fastify-plugin');
 
 /**
  * This plugins adds some utilities to handle http errors
  *
  * @see https://github.com/fastify/fastify-sensible
  */
-module.exports = fp(async function (fastify: FastifyInstance, opts: any) {
-  fastify.register(require('@fastify/sensible'), {
-    errorHandler: false
-  })
-})
+module.exports = fp(async function (fastify: FastifyInstance) {
+    fastify.register(require('@fastify/sensible'), {
+        errorHandler: false,
+    });
+});
