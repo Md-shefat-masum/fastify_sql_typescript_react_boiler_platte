@@ -1,21 +1,21 @@
-'use strict'
+'use strict';
 import fp from 'fastify-plugin';
-import { FastifyInstance } from "fastify"
+import { FastifyInstance } from 'fastify';
 
-module.exports = fp(async function (fastify: FastifyInstance, opts: {}) {
+module.exports = fp(function (fastify: FastifyInstance) {
     fastify.decorate('print', function () {
-        console.log('\x1b[32m', '------------------', '\x1b[37m', '\n')
+        console.log('\x1b[32m', '------------------', '\x1b[37m', '\n');
 
         var args = [...arguments];
-        args.forEach(i => {
+        args.forEach((i) => {
             console.log('');
-            console.log(i)
+            console.log(i);
             console.log('');
         });
 
         console.log('\n', '\x1b[32m', '---------------', '\x1b[37m');
-    })
-})
+    });
+});
 
 declare module 'fastify' {
     export interface FastifyInstance {
@@ -26,6 +26,6 @@ declare module 'fastify' {
             print({},[],232,"asdf")
         ```
          */
-        print(param:any): void;
+        print(param: any): void;
     }
 }
