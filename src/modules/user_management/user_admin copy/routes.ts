@@ -1,9 +1,11 @@
-'use strict'
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import controller from "./controller";
+'use strict';
+import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import controller from './controller';
 
-module.exports = async function (fastify: FastifyInstance, opts: { prefix: '', db: {} }) {
-
+module.exports = async function (
+    fastify: FastifyInstance,
+    opts: { prefix: ''; db: {} },
+) {
     let prefix: string = '/admin-users-copy';
 
     fastify
@@ -14,6 +16,5 @@ module.exports = async function (fastify: FastifyInstance, opts: { prefix: '', d
         .post(`${prefix}/soft-delete`, controller.soft_delete)
         .post(`${prefix}/restore`, controller.restore)
         .post(`${prefix}/destroy`, controller.destroy)
-        .post(`${prefix}/import`, controller.import)
-
-}
+        .post(`${prefix}/import`, controller.import);
+};
