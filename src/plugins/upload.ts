@@ -1,5 +1,6 @@
 'use strict';
 
+import { DoneFuncWithErrOrRes, FastifyPluginOptions } from 'fastify';
 import { FastifyInstance } from 'fastify/types/instance';
 
 const fp = require('fastify-plugin');
@@ -19,7 +20,11 @@ function ensureDirectoryExistence(filePath: String[] = []) {
     }, '');
 }
 
-module.exports = fp(async function (fastify: FastifyInstance) {
+module.exports = fp(async function (
+    fastify: FastifyInstance,
+    opts: FastifyPluginOptions,
+    done: () => void,
+) {
     fastify.decorate(
         'upload',
         async function (
@@ -51,6 +56,7 @@ module.exports = fp(async function (fastify: FastifyInstance) {
             }
         },
     );
+    done();
 });
 
 declare module 'fastify' {
