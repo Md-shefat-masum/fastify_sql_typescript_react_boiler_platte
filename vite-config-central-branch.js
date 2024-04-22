@@ -1,6 +1,6 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import path from "path";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 import { resolve } from 'path';
 import fs from 'fs/promises';
 
@@ -13,8 +13,8 @@ export default defineConfig({
     plugins: [react()],
     resolve: {
         alias: {
-            src: path.resolve("./public/management/central_branch/index.tsx"),
-        }
+            src: path.resolve('./public/management/central_branch/index.tsx'),
+        },
     },
     publicDir: false,
     build: {
@@ -22,7 +22,10 @@ export default defineConfig({
         manifest: false,
         sourcemap: true,
         rollupOptions: {
-            input: resolve(__dirname, 'public/management/central_branch/index.tsx'),
+            input: resolve(
+                __dirname,
+                'public/management/central_branch/index.tsx',
+            ),
             output: {
                 entryFileNames: 'central_branch.js',
             },
@@ -40,11 +43,13 @@ export default defineConfig({
                     name: 'load-js-files-as-jsx',
                     setup(build) {
                         build.onLoad(
-                            { filter: /public\/management\/central_branch\/.*\.js$/ },
+                            {
+                                filter: /public\/management\/central_branch\/.*\.js$/,
+                            },
                             async (args) => ({
                                 loader: 'tsx',
                                 contents: await fs.readFile(args.path, 'utf8'),
-                            })
+                            }),
                         );
                     },
                 },
@@ -57,4 +62,4 @@ export default defineConfig({
         //     env: {},
         // }
     },
-})
+});
