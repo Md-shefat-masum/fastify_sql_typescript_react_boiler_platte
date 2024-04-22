@@ -6,6 +6,9 @@ module.exports = async function (fastify: FastifyInstance) {
         .get('/', async (req: FastifyRequest, reply: FastifyReply) => {
             return reply.view('index.ejs', { text: 'Hello EJS!' });
         })
+        .get('/login', async (req: FastifyRequest, reply: FastifyReply) => {
+            return reply.view('login.ejs');
+        })
         .get('/about', async function (request, reply) {
             return (reply as any).cookie('baz', 'baz').view('about.ejs', {
                 data: 'about page',
