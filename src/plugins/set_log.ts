@@ -7,7 +7,7 @@ import fp from 'fastify-plugin';
 const pino = require('pino');
 const fs = require('node:fs');
 
-export default fp(async function (fastify) {
+export default fp(function (fastify, opts = {}, done) {
     fastify.decorate(
         'set_log',
         function (
@@ -106,10 +106,10 @@ export default fp(async function (fastify) {
                 error: error_message,
                 message: errors,
             });
-
             return 'log print';
         },
     );
+    done();
 });
 
 declare module 'fastify' {
