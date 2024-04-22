@@ -1,9 +1,17 @@
 'use strict';
 import fp from 'fastify-plugin';
-import { FastifyInstance } from 'fastify';
+import {
+    DoneFuncWithErrOrRes,
+    FastifyInstance,
+    FastifyPluginOptions,
+} from 'fastify';
 
-module.exports = fp(function (fastify: FastifyInstance) {
-    fastify.decorate('print', function () {
+module.exports = fp(function (
+    fastify: FastifyInstance,
+    opts: FastifyPluginOptions,
+    done: () => void,
+) {
+    fastify.decorate('print', function (): void {
         console.log('\x1b[32m', '------------------', '\x1b[37m', '\n');
 
         var args = [...arguments];
@@ -15,6 +23,7 @@ module.exports = fp(function (fastify: FastifyInstance) {
 
         console.log('\n', '\x1b[32m', '---------------', '\x1b[37m');
     });
+    done();
 });
 
 declare module 'fastify' {
