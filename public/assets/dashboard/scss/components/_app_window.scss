@@ -2,6 +2,7 @@
     position: absolute;
     height: 100%;
     width: 100%;
+    z-index: 1;
 
     @for $i from 1 through 15 {
         &:nth-child(#{$i}) {
@@ -32,6 +33,12 @@
     justify-content: space-between;
     border: 1px solid var(--brand_color2);
     border-radius: 5px;
+
+    &.fixed_size {
+        position: unset;
+        width: unset;
+        height: calc(100vh - 140px);
+    }
 
     @for $i from 1 through 15 {
         &:nth-child(#{$i}) {
@@ -100,6 +107,10 @@
         .title {
             cursor: move;
             text-align: center;
+
+            &.no_move {
+                cursor: unset;
+            }
         }
 
         .control {
