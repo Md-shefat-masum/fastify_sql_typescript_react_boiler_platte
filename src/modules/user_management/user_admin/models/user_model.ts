@@ -18,6 +18,7 @@ import {
     InferAttributes,
     InferCreationAttributes,
     CreationOptional,
+    DefaultSetOptions,
     // NonAttribute,
     // ForeignKey,
 } from 'sequelize';
@@ -32,7 +33,9 @@ type InferCreation = InferCreationAttributes<DataModel>;
 class DataModel extends Model<Infer, InferCreation> {
     declare id: CreationOptional<number>;
     declare name: string;
-    declare preferredName: string | null;
+    declare preferred_name: string | null;
+
+    declare status?: number;
 
     declare created_at: CreationOptional<Date>;
     declare updated_at: CreationOptional<Date>;
@@ -50,9 +53,14 @@ function init(sequelize: Sequelize) {
                 type: new DataTypes.STRING(128),
                 allowNull: false,
             },
-            preferredName: {
+            preferred_name: {
                 type: new DataTypes.STRING(128),
                 allowNull: true,
+            },
+            status: {
+                type: new DataTypes.TINYINT(),
+                allowNull: true,
+                defaultValue: 1,
             },
             created_at: DataTypes.DATE,
             updated_at: DataTypes.DATE,
