@@ -710,6 +710,7 @@ input.form_checkbox:checked::after {
   position: absolute;
   height: 100%;
   width: 100%;
+  z-index: 1;
 }
 .app_window:nth-child(1) .explore_window:nth-child(1) {
   top: 50px;
@@ -785,6 +786,11 @@ input.form_checkbox:checked::after {
   justify-content: space-between;
   border: 1px solid var(--brand_color2);
   border-radius: 5px;
+}
+.explore_window.fixed_size {
+  position: unset;
+  width: unset;
+  height: calc(100vh - 140px);
 }
 .explore_window:nth-child(1) {
   top: 50px;
@@ -895,6 +901,9 @@ input.form_checkbox:checked::after {
 .explore_window .action_bar .title {
   cursor: move;
   text-align: center;
+}
+.explore_window .action_bar .title.no_move {
+  cursor: unset;
 }
 .explore_window .action_bar .control ul {
   display: flex;
@@ -1380,6 +1389,23 @@ input.form_checkbox:checked::after {
 .chart_body canvas.doughnut {
   max-height: 250px !important;
   width: 310px !important;
+}
+
+.management_root {
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(7px);
+  border: 1px solid var(--brand_color2);
+  border-radius: 4px;
+  padding: 10px;
+}
+.management_root.no_border {
+  padding: 10px 0px;
+  border: 0;
+}
+.management_root .layout_heading {
+  margin-bottom: 20px;
+  text-transform: capitalize;
 }
 
 /** public/assets/dashboard/scss/style.scss **/
