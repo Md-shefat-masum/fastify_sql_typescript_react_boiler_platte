@@ -20,6 +20,7 @@
     "express-validator": "^7.0.1",
     "fastify": "^4.26.2",
     "html-react-parser": "^5.1.10",
+    "moment": "^2.30.1",
     "mysql2": "^3.9.6",
     "pino-pretty": "^11.0.0",
     "react": "^18.2.0",
@@ -28,6 +29,7 @@
     "react-router-dom": "^6.22.3",
     "sequelize": "^6.37.3",
     "styled-components": "^6.1.8",
+    "use-debounce": "^10.0.0",
     "vite": "^5.2.9"
   },
   "devDependencies": {
@@ -56,8 +58,10 @@
   "scripts": {
     "server": "nodemon",
     "central-branch": "vite build --config vite-config-central-branch.js --watch",
-    "server:lint": "npx esw  --watch --ext .ts src --fix",
-    "client:lint": "npx esw  --watch --ext .tsx public/management  --config .eslintrc.react.json --fix",
+    "server:lint": "npx esw --ext .ts src --fix",
+    "server:lint:watch": "npx esw  --watch --ext .ts src --fix",
+    "client:lint": "npx esw --ext .tsx public/management  --config .eslintrc.react.json --fix",
+    "client:lint:watch": "npx esw  --watch --ext .tsx public/management  --config .eslintrc.react.json --fix",
     "client:sass": " npx sass public/assets/dashboard/scss/style.scss public/assets/dashboard/styles/style.css -w"
   }
 }
