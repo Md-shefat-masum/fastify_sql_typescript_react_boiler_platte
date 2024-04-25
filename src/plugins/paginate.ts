@@ -38,23 +38,41 @@ async function getDataWithPagination(
     });
 
     const totalPages = Math.ceil(users.count / pageSize);
-    // const baseUrl = req.protocol + '://' + req.hostname + req.url.split('?')[0];
-    let url: string = req.url;
-    url = url.replace('page=', 'oldpage=');
-    const baseUrl = req.protocol + '://' + req.hostname + url;
+    // let baseUrl = req.protocol + '://' + req.hostname + req.url.split('?')[0];
+
+    let baseUrl = req.protocol + '://' + req.hostname + req.url;
+    let url: URL = new URL(baseUrl);
+    let path = url.pathname;
+    baseUrl = url.origin + req.hostname + path + url.search;
+
+    let next_page_url = null;
+    let prev_page_url = null;
+    let first_page_url = null;
+    let last_page_url = null;
+    if (page < totalPages) {
+        url.searchParams.set('page', (page + 1).toString());
+        next_page_url = url.href;
+    }
+    if (page > totalPages) {
+        url.searchParams.set('page', (page - 1).toString());
+        prev_page_url = url.href;
+    }
+
+    last_page_url = url.searchParams.set('page', totalPages.toString());
+    first_page_url = url.searchParams.set('page', '1');
 
     const response = {
         current_page: page,
         data: users.rows.map((user: { [key: string]: any }) => user),
-        first_page_url: `${baseUrl}`,
+        first_page_url,
         from: offset + 1,
         last_page: totalPages,
         last_page_url: `${baseUrl}&page=${totalPages}`,
-        links: generatePaginationLinks(baseUrl, page, totalPages),
-        next_page_url: page < totalPages ? `${baseUrl}&page=${page + 1}` : null,
+        links: generatePaginationLinks(baseUrl, page, totalPages, url),
+        next_page_url,
         path: baseUrl,
-        per_page: pageSize.toString(),
-        prev_page_url: page > 1 ? `${baseUrl}&page=${page - 1}` : null,
+        per_page: typeof pageSize === 'string' ? parseInt(pageSize) : pageSize,
+        prev_page_url,
         to: offset + users.rows.length,
         total: users.count,
     };
@@ -73,21 +91,24 @@ function generatePaginationLinks(
     baseUrl: string,
     currentPage: number,
     totalPages: number,
+    url: URL,
 ) {
     const links = [];
 
     // Previous page link
+    url.searchParams.set('page', (currentPage - 1).toString());
     links.push({
-        url: currentPage > 1 ? `${baseUrl}?page=${currentPage - 1}` : null,
-        label: "<i class='fa fa-angle-left'></i>",
+        url: currentPage > 1 ? url.href : null,
+        label: `<span class="material-symbols-outlined fill">chevron_left</span>`,
         active: false,
     });
 
     // Page links
     for (let i = 1; i <= totalPages; i++) {
+        url.searchParams.set('page', i.toString());
         links.push({
-            url: `${baseUrl}?page=${i}`,
-            label: i.toString(),
+            url: url.href,
+            label: typeof i === 'string' ? parseInt(i) : i,
             active:
                 i ===
                 (typeof currentPage === 'string'
@@ -97,12 +118,10 @@ function generatePaginationLinks(
     }
 
     // Next page link
+    url.searchParams.set('page', (currentPage + 1).toString());
     links.push({
-        url:
-            currentPage < totalPages
-                ? `${baseUrl}?page=${currentPage + 1}`
-                : null,
-        label: "<i class='fa fa-angle-right'></i>",
+        url: currentPage < totalPages ? url.href : null,
+        label: `<span class="material-symbols-outlined fill">chevron_right</span>`,
         active: false,
     });
 
