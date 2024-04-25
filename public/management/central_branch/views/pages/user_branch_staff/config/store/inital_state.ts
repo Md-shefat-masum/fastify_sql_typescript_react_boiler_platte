@@ -26,6 +26,7 @@ export const initialState = {
     selected: [], // selected data using checkbox
 
     /* trigger showing data modal */
+    show_filter_canvas: false,
     show_management_modal: false,
     modal_selected_qty: 1, // how much will checked from management modal
 
