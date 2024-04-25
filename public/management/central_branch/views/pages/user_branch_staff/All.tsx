@@ -8,6 +8,7 @@ import { initialState } from './config/store/inital_state';
 import Header from './components/all_data_page/Header';
 import TableFooter from './components/all_data_page/TableFooter';
 import Paginate from '../../components/Paginate';
+import Filter from './components/canvas/Filter';
 import storeSlice from './config/store';
 
 export interface Props {}
@@ -103,9 +104,10 @@ const All: React.FC<Props> = (props: Props) => {
                         ></Paginate>
                     </div>
                 </div>
-
                 <TableFooter></TableFooter>
             </div>
+
+            <Filter></Filter>
         </div>
     );
 };
