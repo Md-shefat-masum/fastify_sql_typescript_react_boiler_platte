@@ -19,6 +19,7 @@
     "eslint-watch": "^8.0.0",
     "express-validator": "^7.0.1",
     "fastify": "^4.26.2",
+    "html-react-parser": "^5.1.10",
     "mysql2": "^3.9.6",
     "pino-pretty": "^11.0.0",
     "react": "^18.2.0",
