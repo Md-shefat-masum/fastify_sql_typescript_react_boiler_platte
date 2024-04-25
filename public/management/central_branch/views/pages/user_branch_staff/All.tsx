@@ -8,6 +8,7 @@ import { initialState } from './config/store/inital_state';
 import Header from './components/all_data_page/Header';
 import TableFooter from './components/all_data_page/TableFooter';
 import Paginate from '../../components/Paginate';
+import storeSlice from './config/store';
 
 export interface Props {}
 
@@ -21,11 +22,6 @@ const All: React.FC<Props> = (props: Props) => {
     useEffect(() => {
         dispatch(all({}) as any);
     }, []);
-
-    console.log(state.is_loading);
-    if (state.is_loading) {
-        return <div>loading</div>;
-    }
 
     return (
         <div className="page_content">
@@ -49,52 +45,62 @@ const All: React.FC<Props> = (props: Props) => {
                                         <th>ID</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
-                                        <th>Email</th>
-                                        <th>Phone Number</th>
                                         <th>Image</th>
                                     </tr>
                                 </thead>
                                 <tbody id="all_list">
-                                    <tr id="21" className="">
-                                        <td>
-                                            <span className="icon" />
-                                            <div className="table_action_btns">
-                                                <ul>
-                                                    <li>
-                                                        <a href="/user/21">
-                                                            Show
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Edit</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td>21</td>
-                                        <td>Earnest</td>
-                                        <td>Wuckert</td>
-                                        <td>dschmidt@example.com</td>
-                                        <td>(747) 880-9945</td>
-                                        <td>
-                                            <img
-                                                src="http://127.0.0.1:8000/avatar.png"
-                                                alt=""
-                                                style={{ height: 30 }}
-                                            />
-                                        </td>
-                                    </tr>
+                                    {(state.all as any).data?.map((i) => {
+                                        return (
+                                            <tr id="21" className="">
+                                                <td>
+                                                    <span className="icon" />
+                                                    <div className="table_action_btns">
+                                                        <ul>
+                                                            <li>
+                                                                <a href="/user/21">
+                                                                    Show
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    Edit
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    Delete
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" />
+                                                </td>
+                                                <td>{i.id}</td>
+                                                <td>{i.name}</td>
+                                                <td>{i.preferred_name}</td>
+                                                <td>
+                                                    <img
+                                                        src="/assets/dashboard/images/avatar.png"
+                                                        alt=""
+                                                        style={{ height: 30 }}
+                                                    />
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
                                 </tbody>
                             </table>
                         </div>
 
-                        <Paginate></Paginate>
+                        <Paginate
+                            set_url={storeSlice.actions.set_url}
+                            set_paginate={storeSlice.actions.set_paginate}
+                            all={all}
+                            data={state.all as any}
+                            selected_paginate={state.paginate}
+                        ></Paginate>
                     </div>
                 </div>
 
