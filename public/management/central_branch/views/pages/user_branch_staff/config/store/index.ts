@@ -18,9 +18,7 @@ const storeSlice = createSlice({
     reducers: store_reducers,
     extraReducers: (builder) => {
         builder
-            .addCase(all.fulfilled, (state, { type, payload, meta }) => {
-                console.log(type, payload, meta);
-            })
+            .addCase(all.fulfilled, (state, { type, payload, meta }) => {})
             .addCase(details.fulfilled, (state, { type, payload, meta }) => {
                 console.log(type, payload, meta);
             })
