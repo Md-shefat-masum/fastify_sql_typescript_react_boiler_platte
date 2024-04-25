@@ -9,8 +9,9 @@ export const initialState = {
     loading_text: 'loading..',
 
     /* data store */
-    all: [],
+    all: {},
     item: {},
+    url: '',
 
     /* data filters */
     all_data_count: 0, // total data in database
