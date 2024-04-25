@@ -74,7 +74,7 @@ async function boot() {
             attachFieldsToBody: 'keyValues',
             onFile,
             limits: {
-                fileSize: 1000000 * 10,
+                fileSize: 6000000 * 10,
             },
         })
         .register(AutoLoad, {
