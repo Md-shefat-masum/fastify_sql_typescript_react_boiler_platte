@@ -32,11 +32,20 @@ const fetch_api = async (param, thunkAPI) => {
         show_active_data: state[`show_active_data`],
     };
 
-    const response = await axios.get(`${end_point}/${api_prefix}`, {
-        params: {
-            ...qparams,
-        },
-    });
+    let response: { [key: string]: any } = {};
+
+    if (state[`url`]) {
+        response = await axios.get(state[`url`]);
+    } else {
+        let url = `${end_point}/${api_prefix}`;
+        response = await axios.get(url, {
+            params: {
+                ...qparams,
+            },
+        });
+    }
+
+    dispatch(storeSlice.actions.set_all(response.data));
 
     dispatch(storeSlice.actions.set_is_loading(false));
 
