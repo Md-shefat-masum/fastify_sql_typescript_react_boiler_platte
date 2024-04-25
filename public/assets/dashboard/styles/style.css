@@ -79,7 +79,6 @@ td {
   vertical-align: baseline;
   box-sizing: border-box;
   font-family: "ubutu";
-  transition-duration: 0.2s;
 }
 
 div {
@@ -1115,6 +1114,9 @@ input.form_checkbox:checked::after {
 }
 .data_list .pagination_part .pagination li:last-child a, .data_list .pagination_part .pagination li:first-child a {
   line-height: 15px;
+}
+.data_list .pagination_part .pagination li:last-child a span, .data_list .pagination_part .pagination li:first-child a span {
+  font-size: 18px;
 }
 .data_list .pagination_part .pagination li a {
   height: 20px;
