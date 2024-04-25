@@ -14,8 +14,8 @@ POST  {{hostname}}/store HTTP/1.1
 content-type: application/json
 
 {
-    "name": "ccc",
-    "preferred_name": "ccc",
+    "name": "lll",
+    "preferred_name": "lll",
     "status": 1
 }
 
