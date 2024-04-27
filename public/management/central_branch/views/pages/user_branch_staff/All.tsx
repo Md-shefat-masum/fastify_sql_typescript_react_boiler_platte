@@ -9,6 +9,7 @@ import Header from './components/all_data_page/Header';
 import TableFooter from './components/all_data_page/TableFooter';
 import Paginate from '../../components/Paginate';
 import Filter from './components/canvas/Filter';
+import QuickView from './components/canvas/QuickView';
 import storeSlice from './config/store';
 
 export interface Props {}
@@ -52,7 +53,7 @@ const All: React.FC<Props> = (props: Props) => {
                                 <tbody id="all_list">
                                     {(state.all as any).data?.map((i) => {
                                         return (
-                                            <tr id="21" className="">
+                                            <tr id="21" key={i.id} className="">
                                                 <td>
                                                     <span className="icon" />
                                                     <div className="table_action_btns">
@@ -108,6 +109,7 @@ const All: React.FC<Props> = (props: Props) => {
             </div>
 
             <Filter></Filter>
+            <QuickView></QuickView>
         </div>
     );
 };
