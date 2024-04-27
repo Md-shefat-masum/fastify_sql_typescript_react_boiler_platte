@@ -1110,6 +1110,14 @@ input.form_checkbox:checked::after {
   border: 1px solid var(--brand_color2);
 }
 
+.table {
+  width: 100%;
+}
+.table tr td,
+.table tr th {
+  white-space: no-wrap;
+}
+
 .data_list {
   display: flex;
   flex-direction: column;
@@ -1336,11 +1344,14 @@ input.form_checkbox:checked::after {
 .off_canvas {
   position: fixed;
   height: 100svh;
-  width: 300px;
+  min-width: 300px;
   top: 0;
   right: 0;
   z-index: 2;
   border: 1px solid var(--brand_color2);
+}
+.off_canvas.quick_view {
+  min-width: 500px;
 }
 .off_canvas .off_canvas_body {
   background-color: var(--brand_dark);
@@ -1372,6 +1383,10 @@ input.form_checkbox:checked::after {
 }
 .off_canvas .off_canvas_body .content .input_item {
   width: 100%;
+}
+
+.filter_item {
+  margin-bottom: 15px;
 }
 
 .analytics {
