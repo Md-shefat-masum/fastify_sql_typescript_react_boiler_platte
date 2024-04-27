@@ -4,7 +4,7 @@ import moment from 'moment/moment';
 export interface Props {
     value: string | null;
     name: string;
-    handler: (data: string) => void;
+    handler: (data: { [key: string]: any }) => void;
 }
 
 export function formated_date(value) {
@@ -31,7 +31,9 @@ const DateEl: React.FC<Props> = ({ value, name, handler }: Props) => {
         if (date_input.current) {
             const input_value = date_input.current.value;
             setInput_value(input_value);
-            handler(input_value);
+            handler({
+                [name]: input_value,
+            });
         }
     }
 
