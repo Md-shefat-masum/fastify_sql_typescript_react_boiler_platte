@@ -17,7 +17,7 @@ const Filter: React.FC<Props> = (props: Props) => {
 
     const dispatch = useAppDispatch();
 
-    function get_start_date(data: string): void {
+    function get_data(data: { [key: string]: any }): void {
         console.log(data);
     }
 
@@ -35,7 +35,9 @@ const Filter: React.FC<Props> = (props: Props) => {
                             className="close_button"
                             onClick={() => close_filter(false)}
                         >
-                            x
+                            <span className="material-symbols-outlined fill">
+                                close
+                            </span>
                         </button>
                     </div>
 
@@ -45,8 +47,21 @@ const Filter: React.FC<Props> = (props: Props) => {
                             <DateEl
                                 value={''}
                                 name={'start_date'}
-                                handler={get_start_date}
+                                handler={get_data}
                             ></DateEl>
+                        </div>
+                        <div className="filter_item">
+                            <label htmlFor="end_date">End Date</label>
+                            <DateEl
+                                value={''}
+                                name={'end_date'}
+                                handler={get_data}
+                            ></DateEl>
+                        </div>
+                        <div className="filter_item">
+                            <button className="btn btn-sm btn-outline-info">
+                                Submit
+                            </button>
                         </div>
                     </div>
                 </div>
