@@ -129,6 +129,7 @@
                             text-align: center;
                             line-height: 20px;
                         }
+                        
                     }
 
                     &:nth-child(1) {
@@ -188,6 +189,10 @@
                         padding: 4px 8px;
                         border-radius: 4px;
                         background-color: transparent;
+
+                        &.outline{
+                            border: 1px solid rgba(15, 113, 170, 0.534);
+                        }
 
                         &:hover {
                             background-color: var(--brand_color2);
