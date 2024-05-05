@@ -13,6 +13,7 @@
 
     .off_canvas_body {
         background-color: var(--brand_dark);
+        height: 100%;
 
         .header {
             min-height: 50px;
@@ -34,7 +35,7 @@
             }
         }
 
-        .content {
+        .data_content {
             height: calc(100svh - 52px);
             padding: 10px;
             overflow-y: auto;
@@ -47,6 +48,7 @@
                 width: 100%;
             }
         }
+        
     }
 }
 
