@@ -1,3 +1,4 @@
+import { anyObject } from '../../../../../common_types/object';
 import setup from '../setup';
 
 const store_prefix = setup.prefix;
@@ -10,10 +11,11 @@ export const initialState = {
 
     /* data store */
     all: {},
-    item: {},
+    item: {} as anyObject,
     url: '',
 
     /* data filters */
+    filter_criteria: {} as anyObject,
     all_data_count: 0, // total data in database
     page: 1,
     paginate: 10,
@@ -27,6 +29,7 @@ export const initialState = {
 
     /* trigger showing data modal */
     show_filter_canvas: false,
+    show_quick_view_canvas: false,
     show_management_modal: false,
     modal_selected_qty: 1, // how much will checked from management modal
 
