@@ -6,6 +6,8 @@ const setup: setup_type = {
     module_name: 'user_branch_staff',
 
     route_prefix: 'branch-staffs',
+
+    api_host: location.origin,
     api_prefix: 'admin-users',
 
     store_prefix: 'branchStaff',
