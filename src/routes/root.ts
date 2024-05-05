@@ -16,29 +16,32 @@ module.exports = async function (fastify: FastifyInstance) {
         })
         .post('/c', async function (req: FastifyRequest) {
             const { body, validationResult } = require('express-validator');
-            await body('title')
-                .not()
-                .isEmpty()
-                .withMessage('the title field is required')
-                .run(req);
+            console.log('request', req.body);
 
-            let bodys: {
-                'image[]': {
-                    data: string;
-                    name: string;
-                    ext: string;
-                }[];
-            } = (req as any).body;
+            return { a: 'sdf' };
+            // await body('title')
+            //     .not()
+            //     .isEmpty()
+            //     .withMessage('the title field is required')
+            //     .run(req);
 
-            if (bodys['image[]'].length) {
-                // console.log(bodys['image[]'][0]);
-                fastify.upload(
-                    bodys['image[]'][0],
-                    'uploads/users/' + bodys['image[]'][0].name,
-                );
-            }
+            // let bodys: {
+            //     'image[]': {
+            //         data: string;
+            //         name: string;
+            //         ext: string;
+            //     }[];
+            // } = (req as any).body;
 
-            let result = validationResult(req);
-            return { d: 'uploads/', errors: result.array() };
+            // if (bodys['image[]'].length) {
+            //     // console.log(bodys['image[]'][0]);
+            //     fastify.upload(
+            //         bodys['image[]'][0],
+            //         'uploads/users/' + bodys['image[]'][0].name,
+            //     );
+            // }
+
+            // let result = validationResult(req);
+            // return { d: 'uploads/', errors: result.array() };
         });
 };
