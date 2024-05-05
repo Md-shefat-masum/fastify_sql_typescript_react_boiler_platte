@@ -3,6 +3,10 @@
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
 
+interface anyObject {
+    [key: string]: any;
+}
+
 // const fp = require('fastify-plugin')
 const pino = require('pino');
 const fs = require('node:fs');
@@ -12,16 +16,11 @@ export default fp(function (fastify, opts = {}, done) {
         'set_log',
         function (
             error_code: string = '',
-            error: FastifyError | { stack: any; message: any },
+            // error: FastifyError | { stack: any; message: any },
+            error: anyObject,
             res: FastifyReply,
             req: FastifyRequest,
         ): string {
-            if (!Object.keys(error).length) {
-                error = {
-                    stack: '',
-                    message: '',
-                };
-            }
             var streams = [
                 // { stream: fs.createWriteStream('logs/info.log', { flags: 'a' }) },
                 // { level: 'debug', stream: fs.createWriteStream('logs/debug.log', { flags: 'a' }) },
@@ -64,11 +63,7 @@ export default fp(function (fastify, opts = {}, done) {
                 }
             }
 
-            // if (error.statusCode) {
-            //     log.fatal(error.stack);
-            //     res.status(error.statusCode).send({ error: error.message });
-            // }
-            else if (error_code == '404') {
+            if (error_code == '404') {
                 log = pino(
                     {
                         level: 'debug',
@@ -85,7 +80,9 @@ export default fp(function (fastify, opts = {}, done) {
                 );
                 log.fatal({ error: '404', url: req.url });
                 error.message = error_message = 'target not found';
-            } else if (error_code == '500') {
+            }
+
+            if (error_code == '500') {
                 log.fatal(errors);
                 error_message = 'internal server error';
             }
