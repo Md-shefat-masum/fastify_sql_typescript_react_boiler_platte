@@ -26,6 +26,7 @@
                         line-height: 15px;
                         span{
                             font-size: 18px;
+                            user-select: none;
                         }
                     }
                 }
@@ -36,6 +37,7 @@
                     border: 1px solid var(--brand_white);
                     text-align: center;
                     line-height: 19px;
+                    user-select: none;
 
                     &:hover,
                     &.active {
