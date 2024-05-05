@@ -1,5 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { initialState } from './inital_state';
+import { anyObject } from '../../../../../common_types/object';
 
 export const store_reducers = {
     set_is_loading: (
@@ -29,6 +30,12 @@ export const store_reducers = {
     ) => {
         state.show_filter_canvas = action.payload;
     },
+    set_show_quick_view_canvas: (
+        state: typeof initialState,
+        action: PayloadAction<boolean>,
+    ) => {
+        state.show_quick_view_canvas = action.payload;
+    },
     set_paginate: (
         state: typeof initialState,
         action: PayloadAction<number>,
@@ -40,5 +47,14 @@ export const store_reducers = {
         action: PayloadAction<string>,
     ) => {
         state.search_key = action.payload;
+    },
+    set_item: (state: typeof initialState, action: PayloadAction<object>) => {
+        state.item = action.payload;
+    },
+    set_filter_criteria: (
+        state: typeof initialState,
+        action: PayloadAction<{ key: string; value: string | number }>,
+    ) => {
+        state.filter_criteria[action.payload.key] = action.payload.value;
     },
 };
