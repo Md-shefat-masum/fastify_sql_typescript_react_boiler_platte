@@ -7,6 +7,10 @@ export interface Props {
     handler: (data: { [key: string]: any }) => void;
 }
 
+interface TargetWithPicker {
+    showPicker?: () => void;
+}
+
 export function formated_date(value) {
     if (value) {
         return moment(value).format('DD MMMM YYYY');
@@ -33,9 +37,18 @@ const DateEl: React.FC<Props> = ({ value, name, handler }: Props) => {
             setInput_value(input_value);
             handler({
                 [name]: input_value,
+                key: name,
+                value: input_value,
             });
         }
     }
+
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        const target = event.target as TargetWithPicker | null;
+        if (target?.showPicker) {
+            target.showPicker();
+        }
+    };
 
     return (
         <label
@@ -45,7 +58,7 @@ const DateEl: React.FC<Props> = ({ value, name, handler }: Props) => {
             <input
                 type="date"
                 ref={date_input}
-                onFocus={(event) => event?.target?.showPicker()}
+                onClick={(e) => handleClick(e)}
                 id={name}
                 name={name}
                 onChange={date_handler}
