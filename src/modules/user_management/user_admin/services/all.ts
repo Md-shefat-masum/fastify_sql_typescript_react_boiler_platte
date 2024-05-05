@@ -34,7 +34,6 @@ async function all(
         paginate,
         query,
     );
-
     return data;
 }
 
