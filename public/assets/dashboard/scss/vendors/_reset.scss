@@ -68,20 +68,20 @@ td {
     font-size: 100%;
     font-style: inherit;
     font-weight: inherit;
-    vertical-align: baseline;
+    // vertical-align: baseline;
     box-sizing: border-box;
     font-family: "ubutu";
     // transition-duration: .2s;
 }
 
-div{
-    transition-duration: 0s;
-}
+// div{
+//     transition-duration: 0s;
+// }
 
 /* Additional CSS reset rules */
-body {
-    line-height: 1;
-}
+// body {
+//     line-height: 1;
+// }
 
 label {
     display: block;
@@ -122,7 +122,7 @@ textarea {
     &:focus {
         border: 1px solid var(--brand_white);
         // background-color: var(--brand_color3);
-        backdrop-filter: blur(2px);
+        // backdrop-filter: blur(2px);
     }
 }
 
