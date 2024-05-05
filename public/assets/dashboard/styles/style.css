@@ -76,20 +76,11 @@ td {
   font-size: 100%;
   font-style: inherit;
   font-weight: inherit;
-  vertical-align: baseline;
   box-sizing: border-box;
   font-family: "ubutu";
 }
 
-div {
-  transition-duration: 0s;
-}
-
 /* Additional CSS reset rules */
-body {
-  line-height: 1;
-}
-
 label {
   display: block;
   display: flex;
@@ -129,7 +120,6 @@ select:focus,
 textarea:not(:placeholder-shown),
 textarea:focus {
   border: 1px solid var(--brand_white);
-  backdrop-filter: blur(2px);
 }
 
 option {
@@ -388,6 +378,13 @@ body {
   height: 20px;
   width: 20px;
 }
+.app_nav .navigation_list .icon_link_li.text_line {
+  width: 135px;
+  text-align: right;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--brand_white2);
+}
 .app_nav .navigation_link {
   color: var(--brand_white2);
   position: relative;
@@ -584,6 +581,16 @@ body {
 }
 .custom_scroll::-webkit-scrollbar-thumb:hover {
   background: var(--brand_white2);
+}
+
+.text-start,
+.text-left {
+  text-align: left;
+}
+
+.text-end,
+.text-right {
+  text-align: right;
 }
 
 .btn {
@@ -953,6 +960,9 @@ input.form_checkbox:checked::after {
   border-radius: 4px;
   background-color: transparent;
 }
+.explore_window .footer .action_btns ul li a.outline {
+  border: 1px solid rgba(15, 113, 170, 0.534);
+}
 .explore_window .footer .action_btns ul li a:hover {
   background-color: var(--brand_color2);
 }
@@ -1115,7 +1125,33 @@ input.form_checkbox:checked::after {
 }
 .table tr td,
 .table tr th {
-  white-space: no-wrap;
+  white-space: nowrap;
+  padding: 13px;
+}
+.table.table-bordered tr td,
+.table.table-bordered tr th {
+  border: 1px solid var(--brand_color2);
+}
+
+.quick_modal_table tr td,
+.quick_modal_table tr th {
+  color: var(--brand_white);
+}
+.quick_modal_table tr td:nth-child(1),
+.quick_modal_table tr th:nth-child(1) {
+  border-right: 0;
+  text-align: left;
+}
+.quick_modal_table tr td:nth-child(2),
+.quick_modal_table tr th:nth-child(2) {
+  border-right: 0;
+  border-left: 0;
+  width: 3px;
+  padding: 13px 0px;
+}
+.quick_modal_table tr td:nth-child(3),
+.quick_modal_table tr th:nth-child(3) {
+  border-left: 0;
 }
 
 .data_list {
@@ -1142,6 +1178,7 @@ input.form_checkbox:checked::after {
 }
 .data_list .pagination_part .pagination li:last-child a span, .data_list .pagination_part .pagination li:first-child a span {
   font-size: 18px;
+  user-select: none;
 }
 .data_list .pagination_part .pagination li a {
   height: 20px;
@@ -1149,6 +1186,7 @@ input.form_checkbox:checked::after {
   border: 1px solid var(--brand_white);
   text-align: center;
   line-height: 19px;
+  user-select: none;
 }
 .data_list .pagination_part .pagination li a:hover, .data_list .pagination_part .pagination li a.active {
   color: var(--brand_color2);
@@ -1355,6 +1393,7 @@ input.form_checkbox:checked::after {
 }
 .off_canvas .off_canvas_body {
   background-color: var(--brand_dark);
+  height: 100%;
 }
 .off_canvas .off_canvas_body .header {
   min-height: 50px;
@@ -1373,15 +1412,15 @@ input.form_checkbox:checked::after {
   color: red;
   cursor: pointer;
 }
-.off_canvas .off_canvas_body .content {
+.off_canvas .off_canvas_body .data_content {
   height: calc(100svh - 52px);
   padding: 10px;
   overflow-y: auto;
 }
-.off_canvas .off_canvas_body .content .label {
+.off_canvas .off_canvas_body .data_content .label {
   margin-bottom: 15px;
 }
-.off_canvas .off_canvas_body .content .input_item {
+.off_canvas .off_canvas_body .data_content .input_item {
   width: 100%;
 }
 
