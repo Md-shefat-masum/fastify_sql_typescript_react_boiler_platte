@@ -1,6 +1,5 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import DateEl from '../../../../components/DateEl';
 import { RootState, useAppDispatch } from '../../../../../store';
 import storeSlice from '../../config/store';
 import { initialState } from '../../config/store/inital_state';
@@ -17,15 +16,11 @@ const QuickView: React.FC<Props> = (props: Props) => {
 
     const dispatch = useAppDispatch();
 
-    function get_data(data: { [key: string]: any }): void {
-        console.log(data);
+    function close_canvas(action: boolean = true) {
+        dispatch(storeSlice.actions.set_show_quick_view_canvas(action));
     }
 
-    function close_filter(action: boolean = true) {
-        dispatch(storeSlice.actions.set_show_filter_canvas(action));
-    }
-
-    if (modalRoot) {
+    if (modalRoot && state.show_quick_view_canvas) {
         return createPortal(
             <div className="off_canvas quick_view">
                 <div className="off_canvas_body">
@@ -33,7 +28,7 @@ const QuickView: React.FC<Props> = (props: Props) => {
                         <h3 className="heading_text">Quick View</h3>
                         <button
                             className="close_button"
-                            onClick={() => close_filter(false)}
+                            onClick={() => close_canvas(false)}
                         >
                             <span className="material-symbols-outlined fill">
                                 close
@@ -41,15 +36,20 @@ const QuickView: React.FC<Props> = (props: Props) => {
                         </button>
                     </div>
 
-                    <div className="content">
-                        <table>
-                            <thead>
+                    <div className="data_content">
+                        <table className="table table-bordered quick_modal_table">
+                            <tbody>
                                 <tr>
                                     <th>Name</th>
                                     <th>:</th>
-                                    <th>md shefat</th>
+                                    <th>{state.item.name}</th>
                                 </tr>
-                            </thead>
+                                <tr>
+                                    <th>Preffered name</th>
+                                    <th>:</th>
+                                    <th>{state.item.preferred_name}</th>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
