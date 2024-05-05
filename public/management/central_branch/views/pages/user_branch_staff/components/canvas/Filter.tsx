@@ -19,10 +19,23 @@ const Filter: React.FC<Props> = (props: Props) => {
 
     function get_data(data: { [key: string]: any }): void {
         console.log(data);
+        set_filter({
+            key: data.key,
+            value: data.value,
+        });
     }
 
     function close_filter(action: boolean = true) {
         dispatch(storeSlice.actions.set_show_filter_canvas(action));
+    }
+
+    function set_filter(data: { key: string; value: string | number }) {
+        dispatch(
+            storeSlice.actions.set_filter_criteria({
+                key: data.key,
+                value: data.value,
+            }),
+        );
     }
 
     if (modalRoot && state.show_filter_canvas) {
@@ -41,7 +54,7 @@ const Filter: React.FC<Props> = (props: Props) => {
                         </button>
                     </div>
 
-                    <div className="content">
+                    <div className="data_content">
                         <div className="filter_item">
                             <label htmlFor="start_date">Start Date</label>
                             <DateEl
