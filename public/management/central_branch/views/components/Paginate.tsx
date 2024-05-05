@@ -20,21 +20,36 @@ export interface Props {
     set_url: Function;
     all: Function;
     set_paginate: Function;
+    set_page: Function;
     selected_paginate: number;
 }
 
 const Paginate: React.FC<Props> = ({
     data,
     set_url,
+    set_page,
     all,
     set_paginate,
     selected_paginate,
 }: Props) => {
     const dispatch = useAppDispatch();
 
-    function change_page(url: string, e) {
+    function change_page(url: string, e, label) {
         e.preventDefault();
-        dispatch(set_url(url));
+        let final_url: InstanceType<typeof URL> = new URL(url);
+        let page_no: string | null = '';
+
+        if (isNaN(label) === false) {
+            dispatch(set_page(label));
+        }
+        if (isNaN(label)) {
+            page_no = new URL(url).searchParams.get('page');
+            dispatch(set_page(page_no));
+        }
+        if (page_no) {
+            final_url.searchParams.set('page', page_no);
+        }
+        dispatch(set_url(final_url.href));
         dispatch(all({}));
     }
 
@@ -44,14 +59,19 @@ const Paginate: React.FC<Props> = ({
         dispatch(all({}));
     }
 
+    if (data && !Object.keys(data).length) {
+        return <></>;
+    }
     return (
         <div className="pagination_part">
             <ul className="pagination">
-                {data.links?.map((i) => {
+                {data?.links?.map((i) => {
                     return (
                         <li>
                             <a
-                                onClick={(e) => i.url && change_page(i.url, e)}
+                                onClick={(e) =>
+                                    i.url && change_page(i.url, e, i.label)
+                                }
                                 className={`${i.active ? 'active' : ''}`}
                                 href={i.url}
                             >
@@ -64,7 +84,7 @@ const Paginate: React.FC<Props> = ({
                 })}
             </ul>
             <div className="showing">
-                {data.from} - {data.to} of {data.total}
+                {data?.from} - {data?.to} of {data?.total}
             </div>
             <div className="limit">
                 <select
