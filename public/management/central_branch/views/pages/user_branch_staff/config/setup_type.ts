@@ -3,6 +3,7 @@ export default interface RouteConfig {
     module_name: string;
     route_prefix: string;
     store_prefix: string;
+    api_host: string;
     api_prefix: string;
     layout_title: string;
     all_page_title: string;
