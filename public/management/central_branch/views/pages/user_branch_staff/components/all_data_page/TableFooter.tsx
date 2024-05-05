@@ -1,35 +1,39 @@
 import React from 'react';
-export interface Props {}
+import { Link } from 'react-router-dom';
+import setup from '../../config/setup';
 
+let route_prefix = setup.route_prefix;
+
+export interface Props {}
 const Footer: React.FC<Props> = (props: Props) => {
     return (
         <div className="footer">
             <div className="action_btns">
                 <ul>
                     <li>
-                        <a href="#">
+                        <Link to={`/${route_prefix}/create`}>
                             <span className="material-symbols-outlined fill">
                                 add
                             </span>
                             <div className="text">create new</div>
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="#">
                             <span className="material-symbols-outlined fill">
                                 download
                             </span>
-                            <div className="text">Export All</div>
+                            <div className="text">Export</div>
                         </a>
                     </li>
-                    <li>
+                    {/* <li>
                         <a href="#">
                             <span className="material-symbols-outlined fill">
                                 upload
                             </span>
                             <div className="text">Import All</div>
                         </a>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </div>
