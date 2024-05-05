@@ -25,7 +25,7 @@ export const sequelize = function (): Promise<sequelize_response> {
         const sequelize: Sequelize = new Sequelize(db, user, pass, {
             host: 'localhost',
             dialect: 'mysql',
-            logging: console.log,
+            // logging: console.log,
         });
 
         try {
