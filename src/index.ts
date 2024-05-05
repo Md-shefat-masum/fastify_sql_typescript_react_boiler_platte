@@ -19,8 +19,30 @@ async function boot() {
         logger: true,
     });
 
-    /** find all module routes */
+    /** conver input files into buffer string */
+    async function onFile(part: any) {
+        console.log({ part });
+        if (part.type == 'file') {
+            const buff = await part.toBuffer();
+            part.value = {};
+            if (part.filename) {
+                part.value = {
+                    data: await Buffer.from(buff, 'base64'),
+                    name: part.filename,
+                    ext: '.' + part.filename.split('.')[1],
+                };
+            }
+        }
+    }
 
+    fastify.register(require('@fastify/multipart'), {
+        attachFieldsToBody: 'keyValues',
+        onFile,
+        limits: {
+            fileSize: 6000000 * 10,
+        },
+    });
+    /** find all module routes */
     async function findAllRoutesFiles(dir: any) {
         let results: any = [];
         async function recursiveSearch(currentPath: any) {
@@ -53,30 +75,8 @@ async function boot() {
             console.error('Error searching for route files:', err);
         });
 
-    /** conver input files into buffer string */
-    async function onFile(part: any) {
-        if (part.type == 'file') {
-            const buff = await part.toBuffer();
-            part.value = {};
-            if (part.filename) {
-                part.value = {
-                    data: await Buffer.from(buff, 'base64'),
-                    name: part.filename,
-                    ext: '.' + part.filename.split('.')[1],
-                };
-            }
-        }
-    }
-
     /** register all dependencies */
     fastify
-        .register(require('@fastify/multipart'), {
-            attachFieldsToBody: 'keyValues',
-            onFile,
-            limits: {
-                fileSize: 6000000 * 10,
-            },
-        })
         .register(AutoLoad, {
             dir: path.join(__dirname, 'plugins'),
         })
@@ -93,8 +93,8 @@ async function boot() {
         })
         .register(underPressure, {
             maxEventLoopDelay: 1000,
-            maxHeapUsedBytes: 100000000,
-            maxRssBytes: 100000000,
+            maxHeapUsedBytes: 1000000000000,
+            maxRssBytes: 1000000000000,
             maxEventLoopUtilization: 0.98,
             message: 'Under pressure!',
             retryAfter: 50,
