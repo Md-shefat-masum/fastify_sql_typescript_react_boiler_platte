@@ -12,14 +12,14 @@ const Toast = Swal.mixin({
         toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
 });
-window.toaster = function toaster(message, icon="success") {
+window.toaster = function toaster(message, icon = "success") {
     Toast.fire({
         icon: icon,
         title: message,
     });
 };
 
-window.s_confirm = async (title="Are you sure?",confirmButtonText='Yes, do it!',icon='warning') => {
+window.s_confirm = async (title = "Are you sure?", confirmButtonText = 'Yes, do it!', icon = 'warning') => {
     let result = await Swal.fire({
         title,
         text: "",
