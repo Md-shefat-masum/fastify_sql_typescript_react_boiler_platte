@@ -41,6 +41,7 @@ const fetch_api = async (param, thunkAPI) => {
     let response: { [key: string]: any } = {};
     let url = `${api_host}${end_point}/${api_prefix}`;
     let full_url: URL = new URL(url);
+    let fetch_only_latest: boolean = state[`only_latest_data`];
 
     for (let param in qparams.params) {
         full_url.searchParams.set(param, qparams.params[param]);
@@ -56,12 +57,14 @@ const fetch_api = async (param, thunkAPI) => {
         Object.keys(state.filter_criteria).length
     ) {
         url = state[`url`];
-        qparams = {};
         // response = await axios.get(url, qparams);
-        response = await fetchDataAndUpdateCache(url);
+        response = await fetchDataAndUpdateCache(url, fetch_only_latest);
     } else {
         // response = await axios.get(url, qparams);
-        response = await fetchDataAndUpdateCache(full_url.href);
+        response = await fetchDataAndUpdateCache(
+            full_url.href,
+            fetch_only_latest,
+        );
     }
 
     // dispatch(commonStore.actions.set_duration(response.duration));
