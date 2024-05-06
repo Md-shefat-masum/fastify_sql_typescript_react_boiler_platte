@@ -12,7 +12,7 @@ export interface responseObject {
 
 export interface Request {
     [k: string]: any;
-    body?: any;
+    body?: Record<string, any>;
     cookies?: Record<string, any>;
     headers?: Record<string, any>;
     params?: Record<string, any>;
