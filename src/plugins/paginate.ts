@@ -27,17 +27,13 @@ async function getDataWithPagination(
     }
     const offset = (page - 1) * pageSize;
     const limit = pageSize;
-    const users = await (model as any).findAndCountAll({
+    const data = await (model as any).findAndCountAll({
         offset,
         limit,
-        where: {
-            status: 1,
-        },
-
         ...query,
     });
 
-    const totalPages = Math.ceil(users.count / pageSize);
+    const totalPages = Math.ceil(data.count / pageSize);
     // let baseUrl = req.protocol + '://' + req.hostname + req.url.split('?')[0];
 
     let baseUrl = req.protocol + '://' + req.hostname + req.url;
@@ -63,7 +59,7 @@ async function getDataWithPagination(
 
     const response = {
         current_page: page,
-        data: users.rows.map((user: { [key: string]: any }) => user),
+        data: data.rows.map((user: { [key: string]: any }) => user),
         first_page_url,
         from: offset + 1,
         last_page: totalPages,
@@ -73,8 +69,8 @@ async function getDataWithPagination(
         path: baseUrl,
         per_page: typeof pageSize === 'string' ? parseInt(pageSize) : pageSize,
         prev_page_url,
-        to: offset + users.rows.length,
-        total: users.count,
+        to: offset + data.rows.length,
+        total: data.count,
     };
 
     return response;
@@ -160,14 +156,6 @@ const paginate = async (
 
     return {};
 };
-
-// Example usage
-// async function main(req) {
-//     const page = 2;
-//     const pageSize = 2;
-//     const response = await getDataWithPagination(req, page, pageSize);
-//     console.log(response);
-// }
 
 export default fp<SupportPluginOptions>(
     (fastify: FastifyInstance, opts = {}, done) => {
