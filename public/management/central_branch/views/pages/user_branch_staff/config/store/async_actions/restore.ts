@@ -5,6 +5,7 @@ import axios from 'axios';
 import setup from '../../setup';
 import { end_point } from '../../../../../../config/api';
 import storeSlice from '..';
+import { all } from './all';
 
 type ReturnType = void;
 type PayloadType = { [key: string]: any };
@@ -23,11 +24,15 @@ const fetch_api = async (param, thunkAPI) => {
     dispatch(storeSlice.actions.set_is_loading(true));
     dispatch(storeSlice.actions.set_loading_text('restoring..'));
 
-    const response = await axios.post(
-        `${end_point}/${api_prefix}/restore`,
-        param.data,
-    );
+    const response = await axios.post(`${end_point}/${api_prefix}/restore`, {
+        id: param.id,
+    });
 
+    let row = document.querySelector(`.table_row_${param.id}`);
+    if (row) {
+        row.classList.add('hide');
+    }
+    await dispatch(all({}));
     dispatch(storeSlice.actions.set_is_loading(false));
     return response.data;
     // thunkAPI.dispatch(storeSlice.actions.my_action())
