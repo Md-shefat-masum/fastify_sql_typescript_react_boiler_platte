@@ -119,7 +119,13 @@ select:not(:placeholder-shown),
 select:focus,
 textarea:not(:placeholder-shown),
 textarea:focus {
-  border: 1px solid var(--brand_white);
+  border: 1px solid var(--brand_white2);
+}
+
+.has_error input,
+.has_error select,
+.has_error textarea {
+  border: 1px solid var(--color_warning);
 }
 
 option {
@@ -273,6 +279,7 @@ body {
   height: 100vh;
   background: url("/assets/dashboard/images/bg2.jpg");
   background-size: cover;
+  overflow-y: hidden;
 }
 
 .checking_auth_div {
@@ -607,6 +614,14 @@ body {
   color: var(--brand_white);
 }
 
+.btn_1 {
+  border: 1px solid rgba(15, 113, 170, 0.534);
+  color: var(--brand_white);
+}
+.btn_1:hover {
+  background-color: rgba(15, 113, 170, 0.534);
+}
+
 .card {
   padding: 11px;
   border-radius: 3px;
@@ -704,12 +719,374 @@ input.form_checkbox:checked::after {
   border: 1px solid var(--brand_color2) !important;
 }
 
+.swal2-popup.swal2-toast {
+  box-shadow: unset !important;
+}
+
 .swal2-title {
   color: var(--brand_white2) !important;
 }
 
 .swal2-styled.swal2-confirm {
   background-color: var(--brand_color2) !important;
+}
+
+.swal2-timer-progress-bar {
+  background: rgb(184, 62, 23) !important;
+}
+
+.form_error {
+  color: #FF5722;
+  padding: 7px 0px 0px;
+}
+
+.form-group {
+  margin-bottom: 30px;
+}
+
+.form_600 {
+  width: 100%;
+  max-width: 600px;
+}
+
+.form-horizontal {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+.form-horizontal label {
+  min-width: 200px;
+  display: block;
+}
+.form-horizontal .form_elements {
+  flex: 1;
+}
+.form-horizontal .form_elements * {
+  width: 100%;
+  display: block;
+}
+.form-horizontal .form_elements button {
+  width: unset;
+}
+
+.form-vertical label {
+  display: block;
+  margin-bottom: 20px;
+}
+.form-vertical .form_elements * {
+  width: 100%;
+  display: block;
+}
+.form-vertical .form_elements button {
+  width: unset;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.m-auto {
+  margin: auto;
+}
+
+.m-1 {
+  margin: 10px;
+}
+
+.mx-1 {
+  margin: 10px;
+}
+
+.my-1 {
+  margin: 10px;
+}
+
+.mt-1 {
+  margin: 10px;
+}
+
+.mr-1 {
+  margin: 10px;
+}
+
+.mb-1 {
+  margin: 10px;
+}
+
+.ml-1 {
+  margin: 10px;
+}
+
+.m-2 {
+  margin: 20px;
+}
+
+.mx-2 {
+  margin: 20px;
+}
+
+.my-2 {
+  margin: 20px;
+}
+
+.mt-2 {
+  margin: 20px;
+}
+
+.mr-2 {
+  margin: 20px;
+}
+
+.mb-2 {
+  margin: 20px;
+}
+
+.ml-2 {
+  margin: 20px;
+}
+
+.m-3 {
+  margin: 30px;
+}
+
+.mx-3 {
+  margin: 30px;
+}
+
+.my-3 {
+  margin: 30px;
+}
+
+.mt-3 {
+  margin: 30px;
+}
+
+.mr-3 {
+  margin: 30px;
+}
+
+.mb-3 {
+  margin: 30px;
+}
+
+.ml-3 {
+  margin: 30px;
+}
+
+.m-4 {
+  margin: 40px;
+}
+
+.mx-4 {
+  margin: 40px;
+}
+
+.my-4 {
+  margin: 40px;
+}
+
+.mt-4 {
+  margin: 40px;
+}
+
+.mr-4 {
+  margin: 40px;
+}
+
+.mb-4 {
+  margin: 40px;
+}
+
+.ml-4 {
+  margin: 40px;
+}
+
+.m-5 {
+  margin: 50px;
+}
+
+.mx-5 {
+  margin: 50px;
+}
+
+.my-5 {
+  margin: 50px;
+}
+
+.mt-5 {
+  margin: 50px;
+}
+
+.mr-5 {
+  margin: 50px;
+}
+
+.mb-5 {
+  margin: 50px;
+}
+
+.ml-5 {
+  margin: 50px;
+}
+
+.px-auto {
+  padding-left: auto;
+  padding-right: auto;
+}
+
+.py-auto {
+  padding-top: auto;
+  padding-bottom: auto;
+}
+
+.p-auto {
+  padding: auto;
+}
+
+.p-1 {
+  padding: 10px;
+}
+
+.px-1 {
+  padding: 10px;
+}
+
+.py-1 {
+  padding: 10px;
+}
+
+.pt-1 {
+  padding: 10px;
+}
+
+.pr-1 {
+  padding: 10px;
+}
+
+.pb-1 {
+  padding: 10px;
+}
+
+.pl-1 {
+  padding: 10px;
+}
+
+.p-2 {
+  padding: 20px;
+}
+
+.px-2 {
+  padding: 20px;
+}
+
+.py-2 {
+  padding: 20px;
+}
+
+.pt-2 {
+  padding: 20px;
+}
+
+.pr-2 {
+  padding: 20px;
+}
+
+.pb-2 {
+  padding: 20px;
+}
+
+.pl-2 {
+  padding: 20px;
+}
+
+.p-3 {
+  padding: 30px;
+}
+
+.px-3 {
+  padding: 30px;
+}
+
+.py-3 {
+  padding: 30px;
+}
+
+.pt-3 {
+  padding: 30px;
+}
+
+.pr-3 {
+  padding: 30px;
+}
+
+.pb-3 {
+  padding: 30px;
+}
+
+.pl-3 {
+  padding: 30px;
+}
+
+.p-4 {
+  padding: 40px;
+}
+
+.px-4 {
+  padding: 40px;
+}
+
+.py-4 {
+  padding: 40px;
+}
+
+.pt-4 {
+  padding: 40px;
+}
+
+.pr-4 {
+  padding: 40px;
+}
+
+.pb-4 {
+  padding: 40px;
+}
+
+.pl-4 {
+  padding: 40px;
+}
+
+.p-5 {
+  padding: 50px;
+}
+
+.px-5 {
+  padding: 50px;
+}
+
+.py-5 {
+  padding: 50px;
+}
+
+.pt-5 {
+  padding: 50px;
+}
+
+.pr-5 {
+  padding: 50px;
+}
+
+.pb-5 {
+  padding: 50px;
+}
+
+.pl-5 {
+  padding: 50px;
 }
 
 .app_window {
@@ -1120,6 +1497,40 @@ input.form_checkbox:checked::after {
   border: 1px solid var(--brand_color2);
 }
 
+.hide {
+  display: none;
+}
+
+.quick_view_trigger {
+  color: #33dfd4;
+  user-select: none;
+  cursor: pointer;
+}
+
+.table_heading_label {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+  user-select: none;
+}
+.table_heading_label span {
+  font-size: 14px;
+}
+.table_heading_label.sort {
+  cursor: n-resize;
+}
+.table_heading_label.sort .icon {
+  color: #FFC107;
+}
+.table_heading_label.sort:hover {
+  color: #FFC107;
+}
+
+th.col_id,
+td.col_id {
+  width: 100px;
+}
+
 .table {
   width: 100%;
 }
@@ -1132,6 +1543,9 @@ input.form_checkbox:checked::after {
 .table.table-bordered tr th {
   border: 1px solid var(--brand_color2);
 }
+.table.table-hover tr:hover td {
+  background-color: var(--brand_color2);
+}
 
 .quick_modal_table tr td,
 .quick_modal_table tr th {
@@ -1141,6 +1555,7 @@ input.form_checkbox:checked::after {
 .quick_modal_table tr th:nth-child(1) {
   border-right: 0;
   text-align: left;
+  width: 200px;
 }
 .quick_modal_table tr td:nth-child(2),
 .quick_modal_table tr th:nth-child(2) {
@@ -1232,6 +1647,7 @@ input.form_checkbox:checked::after {
 .table_responsive table thead tr td {
   text-transform: capitalize;
   padding: 10px 0px;
+  user-select: none;
 }
 .table_responsive table tbody tr {
   border-color: var(--brand_color);
