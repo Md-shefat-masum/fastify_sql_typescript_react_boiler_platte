@@ -1,11 +1,11 @@
-import { Model } from 'sequelize';
+import { FindAndCountOptions, Model } from 'sequelize';
 import db from '../models/db';
-import { FastifyRequest } from 'fastify';
+import { FastifyInstance, FastifyRequest } from 'fastify';
 import response from '../helpers/response';
-import { responseObject } from '../../../common_types/object';
+import { anyObject, responseObject } from '../../../common_types/object';
 
 async function all(
-    fastify_instance: any,
+    fastify_instance: FastifyInstance,
     req: FastifyRequest,
 ): Promise<responseObject> {
     let models = await db();
@@ -13,12 +13,21 @@ async function all(
 
     const { Op } = require('sequelize');
     let search_key = query_param.search_key;
-    let query: { [key: string]: any } = {
-        order: [['id', 'DESC']],
+    let orderByCol = query_param.orderByCol;
+    let orderByAsc = query_param.orderByAsc;
+    let show_active_data = query_param.show_active_data;
+
+    let query: FindAndCountOptions = {
+        order: [[orderByCol, orderByAsc == 'true' ? 'ASC' : 'DESC']],
+        where: {
+            status: show_active_data == 'true' ? 1 : 0,
+        },
+        // include: [models.Project],
     };
 
     if (search_key) {
         query.where = {
+            ...query.where,
             [Op.or]: [
                 { name: { [Op.like]: `%${search_key}%` } },
                 { preferred_name: { [Op.like]: `%${search_key}%` } },
@@ -31,7 +40,7 @@ async function all(
     let paginate = parseInt((req.query as any).paginate);
 
     try {
-        let data = await fastify_instance.paginate(
+        let data = await (fastify_instance as anyObject).paginate(
             req,
             models.User,
             paginate,
