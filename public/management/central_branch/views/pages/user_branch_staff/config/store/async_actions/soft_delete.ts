@@ -5,6 +5,8 @@ import axios from 'axios';
 import setup from '../../setup';
 import { end_point } from '../../../../../../config/api';
 import storeSlice from '..';
+import { all } from './all';
+import { anyObject } from '../../../../../../common_types/object';
 
 type ReturnType = void;
 type PayloadType = { [key: string]: any };
@@ -25,10 +27,18 @@ const fetch_api = async (param, thunkAPI) => {
 
     const response = await axios.post(
         `${end_point}/${api_prefix}/soft-delete`,
-        param.data,
+        { id: param.id },
     );
 
     dispatch(storeSlice.actions.set_is_loading(false));
+    let row = document.querySelector(`.table_row_${param.id}`);
+    if (row) {
+        row.classList.add('hide');
+    }
+    await dispatch(all({}));
+
+    (window as anyObject).toaster('data deleted.');
+
     return response.data;
     // thunkAPI.dispatch(storeSlice.actions.my_action())
 };
