@@ -1,23 +1,29 @@
 import { Model } from 'sequelize';
 import db from '../models/db';
-import { FastifyRequest } from 'fastify';
+import { FastifyInstance, FastifyRequest } from 'fastify';
+import { responseObject } from '../../../common_types/object';
+import response from '../helpers/response';
 
 async function details(
-    fastify_instance: any,
+    fastify_instance: FastifyInstance,
     req: FastifyRequest,
-): Promise<{}> {
+): Promise<responseObject> {
     let models = await db();
     let params = req.params as any;
 
-    let data = await models.User.findOne({
-        where: {
-            id: params.id,
-        },
-    });
-    if (data) {
-        return data;
-    } else {
-        return {};
+    try {
+        let data = await models.User.findOne({
+            where: {
+                id: params.id,
+            },
+        });
+        if (data) {
+            return response(200, 'data created', data);
+        } else {
+            return response(404, 'not found', {});
+        }
+    } catch (error) {
+        return response(500, 'data creation error', { error });
     }
 }
 
