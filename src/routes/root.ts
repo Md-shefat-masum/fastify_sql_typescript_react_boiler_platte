@@ -25,6 +25,8 @@ module.exports = async function (fastify: FastifyInstance) {
             //     .withMessage('the title field is required')
             //     .run(req);
 
+            // let result = validationResult(req);
+
             // let bodys: {
             //     'image[]': {
             //         data: string;
@@ -41,7 +43,6 @@ module.exports = async function (fastify: FastifyInstance) {
             //     );
             // }
 
-            // let result = validationResult(req);
             // return { d: 'uploads/', errors: result.array() };
         });
 };
