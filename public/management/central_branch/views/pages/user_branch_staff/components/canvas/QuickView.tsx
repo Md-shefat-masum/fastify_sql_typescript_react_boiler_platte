@@ -37,7 +37,7 @@ const QuickView: React.FC<Props> = (props: Props) => {
                     </div>
 
                     <div className="data_content">
-                        <table className="table table-bordered quick_modal_table">
+                        <table className="table quick_modal_table">
                             <tbody>
                                 <tr>
                                     <th>Name</th>
