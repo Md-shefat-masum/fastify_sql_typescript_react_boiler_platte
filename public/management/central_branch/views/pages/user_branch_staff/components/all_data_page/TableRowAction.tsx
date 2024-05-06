@@ -1,43 +1,44 @@
 import React, { useRef } from 'react';
 import { anyObject } from '../../../../../common_types/object';
+import setup from '../../config/setup';
+import { Link } from 'react-router-dom';
+import active_row from '../../helpers/table_active_row';
+import DeleteButton from './DeleteButton';
+import DestroyButton from './DestroyButton';
+import RestoreButton from './RestoreButton';
 export interface Props {
     item: anyObject;
 }
 const TableRowAction: React.FC<Props> = ({ item }: Props) => {
     const toggle_icon = useRef<HTMLElement | null>(null);
-    function active_row() {
-        if (toggle_icon.current) {
-            let parent = toggle_icon.current.parentNode as HTMLElement | null;
-            if (parent && parent.parentNode) {
-                parent = parent.parentNode as HTMLElement;
-            }
 
-            const table_rows =
-                document.querySelectorAll<HTMLElement>('.table_rows');
-            if (table_rows.length) {
-                [...table_rows].forEach((i) => {
-                    if (i !== parent) i.classList.remove('active');
-                });
-            }
-
-            if (parent) {
-                parent.classList.toggle('active');
-            }
-        }
-    }
     return (
         <>
-            <span className="icon" ref={toggle_icon} onClick={active_row} />
+            <span
+                className="icon"
+                ref={toggle_icon}
+                onClick={(e) => active_row(toggle_icon, e)}
+            />
             <div className="table_action_btns">
                 <ul>
                     <li>
-                        <a href={`/user/${item.id}`}>Show</a>
+                        <Link to={`/${setup.route_prefix}/details/${item.id}`}>
+                            Show
+                        </Link>
                     </li>
                     <li>
-                        <a href={`/user/edit/${item.id}`}>Edit</a>
+                        <Link to={`/${setup.route_prefix}/edit/${item.id}`}>
+                            Edit
+                        </Link>
                     </li>
                     <li>
-                        <a href={`/user/delete/${item.id}`}>Delete</a>
+                        <DeleteButton item={item} />
+                    </li>
+                    <li>
+                        <DestroyButton item={item} />
+                    </li>
+                    <li>
+                        <RestoreButton item={item} />
                     </li>
                 </ul>
             </div>
