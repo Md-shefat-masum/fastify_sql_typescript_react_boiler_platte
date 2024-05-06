@@ -1,15 +1,16 @@
 'use strict';
-import { FastifyReply, FastifyRequest } from 'fastify';
+import fastify, { FastifyReply, FastifyRequest } from 'fastify';
 import all from './services/all';
 import details from './services/details';
 import soft_delete from './services/soft_delete';
 import store from './services/store';
+import { responseObject } from '../../common_types/object';
 
 export default {
     all: async function (req: FastifyRequest, res: FastifyReply) {
         // console.log(this);
         let fastify_instance = this as any;
-        let data = await all(fastify_instance, req);
+        let data: responseObject = await all(fastify_instance, req);
         res.code(200).send(data);
     },
 
@@ -20,9 +21,9 @@ export default {
     },
 
     store: async function (req: FastifyRequest, res: FastifyReply) {
-        let fastify_instance = this as any;
-        let data = await store(fastify_instance, req);
-        res.code(200).send(data);
+        let fastify_instance = this as unknown;
+        let data: responseObject = await store(fastify_instance, req);
+        res.code(data.status).send(data);
     },
 
     update: async function (req: FastifyRequest, res: FastifyReply) {},
