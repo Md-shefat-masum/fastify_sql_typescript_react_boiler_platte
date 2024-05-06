@@ -94,14 +94,14 @@ async function fetchDataAndUpdateCache(url) {
 
         return {
             duration,
-            data: responseData.data,
+            data: responseData.data.data,
             totalStorage: bytesToKB(usage),
         };
     } catch (error) {
         console.error('error #%s', error);
         return {
             duration,
-            data: responseData.data,
+            data: responseData.data.data,
             totalStorage: 0,
         };
     }
