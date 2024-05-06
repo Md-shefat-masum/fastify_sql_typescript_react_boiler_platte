@@ -1,5 +1,5 @@
 import db from '../models/db';
-import { FastifyRequest } from 'fastify';
+import { FastifyInstance, FastifyRequest } from 'fastify';
 import { body, validationResult } from 'express-validator';
 import {
     anyObject,
@@ -28,7 +28,7 @@ async function validate(req: Request) {
 }
 
 async function store(
-    fastify_instance: any,
+    fastify_instance: FastifyInstance,
     req: FastifyRequest,
 ): Promise<responseObject> {
     /** validation */
@@ -49,7 +49,7 @@ async function store(
 
     /** print request data into console */
     // console.clear();
-    // fastify_instance.print(inputs);
+    // (fastify_instance as any).print(inputs);
 
     /** store data into database */
     try {
