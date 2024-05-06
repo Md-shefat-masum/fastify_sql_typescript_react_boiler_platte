@@ -18,32 +18,34 @@ const storeSlice = createSlice({
     reducers: store_reducers,
     extraReducers: (builder) => {
         builder
-            .addCase(all.fulfilled, (state, { type, payload, meta }) => {})
+            .addCase(all.fulfilled, (state, { type, payload, meta }) => {
+                // console.log(type, payload, meta);
+            })
             .addCase(details.fulfilled, (state, { type, payload, meta }) => {
-                console.log(type, payload, meta);
+                // console.log(type, payload, meta);
             })
             .addCase(store.fulfilled, (state, { type, payload, meta }) => {
-                console.log(type, payload, meta);
+                // console.log(type, payload, meta);
             })
             .addCase(update.fulfilled, (state, { type, payload, meta }) => {
-                console.log(type, payload, meta);
+                // console.log(type, payload, meta);
+            })
+            .addCase(restore.fulfilled, (state, { type, payload, meta }) => {
+                // console.log(type, payload, meta);
+            })
+            .addCase(destroy.fulfilled, (state, { type, payload, meta }) => {
+                // console.log(type, payload, meta);
             })
             .addCase(
                 soft_delete.fulfilled,
                 (state, { type, payload, meta }) => {
-                    console.log(type, payload, meta);
+                    // console.log(type, payload, meta);
                 },
             )
-            .addCase(restore.fulfilled, (state, { type, payload, meta }) => {
-                console.log(type, payload, meta);
-            })
-            .addCase(destroy.fulfilled, (state, { type, payload, meta }) => {
-                console.log(type, payload, meta);
-            })
             .addCase(
                 import_data.fulfilled,
                 (state, { type, payload, meta }) => {
-                    console.log(type, payload, meta);
+                    // console.log(type, payload, meta);
                 },
             );
     },
