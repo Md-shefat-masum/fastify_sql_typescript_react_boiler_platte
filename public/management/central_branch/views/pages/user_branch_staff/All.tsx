@@ -12,8 +12,10 @@ import Filter from './components/canvas/Filter';
 import QuickView from './components/canvas/QuickView';
 import storeSlice from './config/store';
 import { anyObject } from '../../../common_types/object';
-import TableRow from './components/all_data_page/TableRow';
 import TableRowAction from './components/all_data_page/TableRowAction';
+import SelectItem from './components/all_data_page/SelectItem';
+import SelectAll from './components/all_data_page/SelectIAll';
+import TableHeading from './components/all_data_page/TableHeading';
 
 export interface Props {}
 
@@ -35,11 +37,7 @@ const All: React.FC<Props> = (props: Props) => {
 
     return (
         <div className="page_content">
-            <div
-                className="explore_window fixed_size"
-                id="users"
-                style={{ zIndex: 75 }}
-            >
+            <div className="explore_window fixed_size">
                 <Header></Header>
 
                 <div className="content_body">
@@ -50,14 +48,23 @@ const All: React.FC<Props> = (props: Props) => {
                                     <tr>
                                         <th />
                                         <th>
-                                            <input
-                                                type="checkbox"
-                                                className="form_checkbox"
-                                            />
+                                            <SelectAll />
                                         </th>
-                                        <th>ID</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
+                                        <TableHeading
+                                            label={`ID`}
+                                            col_name={`id`}
+                                            sort={true}
+                                        />
+                                        <TableHeading
+                                            label={`Name`}
+                                            col_name={`name`}
+                                            sort={true}
+                                        />
+                                        <TableHeading
+                                            label={`Preferred Name`}
+                                            col_name={`preferred_name`}
+                                            sort={true}
+                                        />
                                         <th>Image</th>
                                     </tr>
                                 </thead>
@@ -67,22 +74,20 @@ const All: React.FC<Props> = (props: Props) => {
                                             return (
                                                 <tr
                                                     key={i.id}
-                                                    className="table_rows"
+                                                    className={`table_rows table_row_${i.id}`}
                                                 >
                                                     <td>
                                                         <TableRowAction
                                                             item={i}
-                                                        ></TableRowAction>
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <input
-                                                            className="form_checkbox"
-                                                            type="checkbox"
-                                                        />
+                                                        <SelectItem item={i} />
                                                     </td>
                                                     <td>{i.id}</td>
                                                     <td>
                                                         <span
+                                                            className="quick_view_trigger"
                                                             onClick={() =>
                                                                 quick_view(i)
                                                             }
