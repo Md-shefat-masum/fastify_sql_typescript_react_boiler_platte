@@ -6,6 +6,19 @@ import {
     FastifyPluginOptions,
 } from 'fastify';
 
+declare module 'fastify' {
+    export interface FastifyInstance {
+        /** 
+         ``` js
+            print(343);
+            print([])
+            print({},[],232,"asdf")
+        ```
+         */
+        print(param: any): void;
+    }
+}
+
 module.exports = fp(function (
     fastify: FastifyInstance,
     opts: FastifyPluginOptions,
@@ -25,16 +38,3 @@ module.exports = fp(function (
     });
     done();
 });
-
-declare module 'fastify' {
-    export interface FastifyInstance {
-        /** 
-         ``` js
-            print(343);
-            print([])
-            print({},[],232,"asdf")
-        ```
-         */
-        print(param: any): void;
-    }
-}
