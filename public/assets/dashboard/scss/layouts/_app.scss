@@ -1,17 +1,21 @@
-body{
+body {
     height: 100vh;
     background: url('/assets/dashboard/images/bg2.jpg');
     background-size: cover;
+    overflow-y: hidden;
 }
-.checking_auth_div{
+
+.checking_auth_div {
     height: 100vh;
     display: grid;
     align-items: center;
     justify-content: center;
-    h2{
+
+    h2 {
         text-transform: capitalize;
     }
 }
+
 #app {
     // border: var(--border);
     height: 100vh;
