@@ -23,7 +23,6 @@ import {
     // ForeignKey,
 } from 'sequelize';
 
-// import {DataModel as Project} from "./project_model"
 const tableName = 'user_models';
 const modelName = 'UserModel';
 
@@ -31,14 +30,14 @@ type Infer = InferAttributes<DataModel>;
 type InferCreation = InferCreationAttributes<DataModel>;
 
 class DataModel extends Model<Infer, InferCreation> {
-    declare id: CreationOptional<number>;
+    declare id?: CreationOptional<number>;
     declare name: string;
     declare preferred_name: string | null;
 
     declare status?: number;
 
-    declare created_at: CreationOptional<Date>;
-    declare updated_at: CreationOptional<Date>;
+    declare created_at?: CreationOptional<Date>;
+    declare updated_at?: CreationOptional<Date>;
 }
 
 function init(sequelize: Sequelize) {
