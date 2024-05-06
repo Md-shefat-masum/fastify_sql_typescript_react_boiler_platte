@@ -49,13 +49,13 @@ const AppNavRight: React.FC<Props> = (props: Props) => {
                         </span>
                     </a>
                 </li> */}
-                <li className="nave_date_time">
+                {/* <li className="nave_date_time">
                     <a href="#dashboard#" className="">
                         <span>01:18:56</span>
                         <span className="meridian">am</span>
                         <span> &nbsp; Mon 22 Apr</span>
                     </a>
-                </li>
+                </li> */}
             </ul>
         </>
     );
