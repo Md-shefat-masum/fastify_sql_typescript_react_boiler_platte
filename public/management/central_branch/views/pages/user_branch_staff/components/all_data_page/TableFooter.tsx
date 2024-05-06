@@ -1,11 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import setup from '../../config/setup';
+import { initialState } from '../../config/store/inital_state';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../../store';
+import ExportSelected from './ExportSelected';
+import AllDeactivatedData from './AllDeactivatedData';
 
 let route_prefix = setup.route_prefix;
 
 export interface Props {}
 const Footer: React.FC<Props> = (props: Props) => {
+    const state: typeof initialState = useSelector(
+        (state: RootState) => state[setup.module_name],
+    );
+
     return (
         <div className="footer">
             <div className="action_btns">
@@ -19,12 +28,10 @@ const Footer: React.FC<Props> = (props: Props) => {
                         </Link>
                     </li>
                     <li>
-                        <a href="#">
-                            <span className="material-symbols-outlined fill">
-                                download
-                            </span>
-                            <div className="text">Export</div>
-                        </a>
+                        <ExportSelected />
+                    </li>
+                    <li>
+                        <AllDeactivatedData />
                     </li>
                     {/* <li>
                         <a href="#">
