@@ -5,6 +5,8 @@ import axios from 'axios';
 import setup from '../../setup';
 import { end_point } from '../../../../../../config/api';
 import storeSlice from '..';
+import { anyObject } from '../../../../../../common_types/object';
+import { all } from './all';
 
 type ReturnType = void;
 type PayloadType = { [key: string]: any };
@@ -25,10 +27,15 @@ const fetch_api = async (param, thunkAPI) => {
 
     const response = await axios.post(
         `${end_point}/${api_prefix}/store`,
-        param.data,
+        param,
     );
 
+    dispatch(all({}));
     dispatch(storeSlice.actions.set_is_loading(true));
+
+    (window as anyObject).toaster(
+        `${response.status} - ${response.data.message}`,
+    );
     return response.data;
     // thunkAPI.dispatch(storeSlice.actions.my_action())
 };
