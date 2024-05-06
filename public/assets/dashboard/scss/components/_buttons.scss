@@ -12,3 +12,12 @@
         color: var(--brand_white);
     }
 }
+
+.btn_1 {
+    border: 1px solid rgba(15, 113, 170, 0.534);
+    color: var(--brand_white);
+
+    &:hover {
+        background-color: rgba(15, 113, 170, 0.534);
+    }
+}
