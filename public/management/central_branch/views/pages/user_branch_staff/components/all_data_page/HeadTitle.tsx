@@ -15,7 +15,7 @@ const HeadTitle: React.FC<Props> = (props: Props) => {
             <h2>
                 {setup.all_page_title}
 
-                {state.is_loading && <span> loading..</span>}
+                {/* {state.is_loading && <span> loading..</span>} */}
             </h2>
         </div>
     );
