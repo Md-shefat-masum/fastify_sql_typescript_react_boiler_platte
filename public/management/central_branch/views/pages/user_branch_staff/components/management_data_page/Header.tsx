@@ -1,7 +1,9 @@
 import React from 'react';
 import setup from '../../config/setup';
 import { Link } from 'react-router-dom';
-export interface Props {}
+export interface Props {
+    page_title: string;
+}
 
 const Header: React.FC<Props> = (props: Props) => {
     return (
@@ -13,7 +15,7 @@ const Header: React.FC<Props> = (props: Props) => {
                     </ul>
                 </div>
                 <div className="title no_move" id="users_drag">
-                    <h2>{setup.create_page_title}</h2>
+                    <h2>{props.page_title}</h2>
                 </div>
                 <div className="control">
                     <ul>
