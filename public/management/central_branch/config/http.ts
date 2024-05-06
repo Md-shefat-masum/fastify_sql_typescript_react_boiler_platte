@@ -57,7 +57,7 @@ function bytesToKB(bytes) {
     return bytes / 1024;
 }
 
-async function fetchDataAndUpdateCache(url) {
+async function fetchDataAndUpdateCache(url, fetch_only_latest) {
     let responseData: anyObject = {
         data: {},
         status: 200,
@@ -80,7 +80,7 @@ async function fetchDataAndUpdateCache(url) {
         }
 
         const cacheData = await cache.match(url);
-        if (cacheData) {
+        if (cacheData && fetch_only_latest === false) {
             responseData.data = await cacheData.json();
             fetch_and_save_to_cache(url, cache, startTime);
         } else {
