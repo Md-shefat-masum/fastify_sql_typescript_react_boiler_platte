@@ -1,44 +1,60 @@
 import React from 'react';
 import Header from './components/management_data_page/Header';
 import Footer from './components/management_data_page/Footer';
-import axios from 'axios';
+import setup from './config/setup';
+import { useAppDispatch } from '../../../store';
+import { store } from './config/store/async_actions/store';
 export interface Props {}
 
 const Create: React.FC<Props> = (props: Props) => {
-    function handle_submit(e) {
-        e.preventDefault();
-        // window.fetch('/api/v1/admin-users/store', {
-        //     method: 'POST',
-        //     body: new FormData(e.target),
-        //     // body: JSON.stringify({ name: 1212, preferred_name: 343 }),
-        // });
+    const dispatch = useAppDispatch();
 
-        axios
-            .post('/api/v1/admin-users/store', new FormData(e.target))
-            .then((res) => {
-                console.log(res.data);
-            });
+    async function handle_submit(e) {
+        e.preventDefault();
+        let response = await dispatch(store(new FormData(e.target)) as any);
+        if (!Object.prototype.hasOwnProperty.call(response, 'error')) {
+            e.target.reset();
+        }
     }
+
     return (
         <>
             <div className="page_content">
-                <div
-                    className="explore_window fixed_size"
-                    id="users"
-                    style={{ zIndex: 75 }}
-                >
-                    <Header></Header>
+                <div className="explore_window fixed_size">
+                    <Header page_title={setup.create_page_title}></Header>
                     <div className="content_body">
-                        <form onSubmit={(e) => handle_submit(e)}>
-                            <div className="form-group">
+                        <form
+                            onSubmit={(e) => handle_submit(e)}
+                            className="form_600 mx-auto pt-3"
+                        >
+                            <div className="form-group form-horizontal">
                                 <label>Name</label>
-                                <input type="text" name="name" />
+                                <div className="form_elements">
+                                    <input
+                                        type="text"
+                                        placeholder="name"
+                                        name="name"
+                                    />
+                                </div>
                             </div>
-                            <div className="form-group">
+                            <div className="form-group form-horizontal">
                                 <label>Preferred Name</label>
-                                <input type="text" name="preferred_name" />
+                                <div className="form_elements">
+                                    <input
+                                        type="text"
+                                        placeholder="preferred_name"
+                                        name="preferred_name"
+                                    />
+                                </div>
                             </div>
-                            <button>submit</button>
+                            <div className="form-group form-horizontal">
+                                <label></label>
+                                <div className="form_elements">
+                                    <button className="btn btn_1">
+                                        submit
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <Footer></Footer>
