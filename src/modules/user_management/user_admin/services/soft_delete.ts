@@ -1,11 +1,13 @@
 import { Model } from 'sequelize';
 import db from '../models/db';
-import { FastifyRequest } from 'fastify';
+import { FastifyInstance, FastifyRequest } from 'fastify';
+import { responseObject } from '../../../common_types/object';
+import response from '../helpers/response';
 
 async function soft_delete(
-    fastify_instance: any,
+    fastify_instance: FastifyInstance,
     req: FastifyRequest,
-): Promise<{}> {
+): Promise<responseObject> {
     let models = await db();
     let body = req.body as { [key: string]: any };
 
@@ -14,16 +16,15 @@ async function soft_delete(
             id: body.id,
         },
     });
-    console.log({ data });
 
     if (data) {
-        data.update({
+        await data.update({
             status: 0,
         });
-        data.save();
-        return data;
+        await data.save();
+        return response(200, 'data deactivated', data);
     } else {
-        return {};
+        return response(500, 'data deactivation failed', {});
     }
 }
 
