@@ -18,14 +18,15 @@ export const initialState = {
     filter_criteria: {} as anyObject,
     all_data_count: 0, // total data in database
     page: 1,
-    paginate: 10,
+    paginate: 13,
     search_key: ``,
     orderByCol: 'id',
     orderByAsc: true,
-    show_active_data: 1, // show all active data
+    show_active_data: true, // show all active data
+    only_latest_data: false, // if true then first fectch from cache then update
 
     /* selected data */
-    selected: [], // selected data using checkbox
+    selected: [] as Array<anyObject>, // selected data using checkbox
 
     /* trigger showing data modal */
     show_filter_canvas: false,
