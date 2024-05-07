@@ -16,8 +16,10 @@ async function all(
     let orderByCol = query_param.orderByCol;
     let orderByAsc = query_param.orderByAsc;
     let show_active_data = query_param.show_active_data;
+    let select_fields = query_param.select_fields.replace(/\s/g, '').split(',');
 
     let query: FindAndCountOptions = {
+        attributes: [...select_fields, 'id', 'status'],
         order: [[orderByCol, orderByAsc == 'true' ? 'ASC' : 'DESC']],
         where: {
             status: show_active_data == 'true' ? 1 : 0,
