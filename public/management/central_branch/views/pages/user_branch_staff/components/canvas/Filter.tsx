@@ -6,6 +6,7 @@ import storeSlice from '../../config/store';
 import { initialState } from '../../config/store/inital_state';
 import { useSelector } from 'react-redux';
 import setup from '../../config/setup';
+import { all } from '../../config/store/async_actions/all';
 export interface Props {}
 
 const modalRoot = document.getElementById('filter-root');
@@ -36,6 +37,11 @@ const Filter: React.FC<Props> = (props: Props) => {
                 value: data.value,
             }),
         );
+    }
+
+    function submit() {
+        dispatch(storeSlice.actions.set_only_latest_data(true));
+        dispatch(all({}) as any);
     }
 
     if (modalRoot && state.show_filter_canvas) {
@@ -72,7 +78,11 @@ const Filter: React.FC<Props> = (props: Props) => {
                             ></DateEl>
                         </div>
                         <div className="filter_item">
-                            <button className="btn btn-sm btn-outline-info">
+                            <button
+                                onClick={submit}
+                                type="button"
+                                className="btn btn-sm btn-outline-info"
+                            >
                                 Submit
                             </button>
                         </div>
