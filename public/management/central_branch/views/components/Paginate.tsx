@@ -55,6 +55,7 @@ const Paginate: React.FC<Props> = ({
 
     function set_page_limit(value) {
         dispatch(set_url(''));
+        dispatch(set_page(1));
         dispatch(set_paginate(value));
         dispatch(all({}));
     }
