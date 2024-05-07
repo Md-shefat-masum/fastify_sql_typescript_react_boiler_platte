@@ -104,7 +104,7 @@ export default fp(function (fastify, opts = {}, done) {
             console.log('');
 
             let response: anyObject = {
-                status: error.code,
+                status: error.code || error_code,
                 message: error.message,
                 data: errors,
             };
@@ -113,7 +113,7 @@ export default fp(function (fastify, opts = {}, done) {
                 response.error_trace_id = error.uid;
             }
 
-            res.status(parseInt(error.code)).send(response);
+            res.status(error.code || parseInt(error_code)).send(response);
             return 'log print';
         },
     );
