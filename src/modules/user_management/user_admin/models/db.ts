@@ -14,6 +14,9 @@ let database = process?.env.DB_DATABASE || '';
 
 const sequelize = new Sequelize(
     `mysql://${user}:${pass}@${host}:${post}/${database}`,
+    {
+        logging: false,
+    },
 );
 
 interface models {
