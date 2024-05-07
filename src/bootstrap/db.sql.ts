@@ -21,9 +21,10 @@ export const sequelize = function (): Promise<sequelize_response> {
         let db = process?.env.DB_DATABASE || '';
         let user = process?.env.DB_USER || '';
         let pass = process?.env.DB_PASS || '';
+        let host = process?.env.DB_HOST || '';
 
         const sequelize: Sequelize = new Sequelize(db, user, pass, {
-            host: 'localhost',
+            host,
             dialect: 'mysql',
             // logging: console.log,
         });
