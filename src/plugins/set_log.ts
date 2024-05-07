@@ -49,7 +49,7 @@ export default fp(function (fastify, opts = {}, done) {
             let error_message = '';
 
             if (error.stack) {
-                stacks = error.stack.split('at');
+                stacks = error.stack.split(' at ');
                 errors = {
                     file: '',
                     time:
@@ -59,7 +59,11 @@ export default fp(function (fastify, opts = {}, done) {
                     message: error.message,
                 };
                 if (stacks.length) {
-                    errors.file = stacks[1];
+                    const regex = /services[^)]*\)/;
+                    const match = stacks[1].match(regex);
+                    if (match) {
+                        errors.file = match[0];
+                    }
                 }
             }
 
@@ -88,21 +92,28 @@ export default fp(function (fastify, opts = {}, done) {
             }
 
             console.log('');
-            console.log('\x1b[31m');
+            // console.log('\x1b[31m');
 
             console.log(error.message);
-            console.log(stacks[1] || '');
+            // console.log(stacks[1] || '');
 
-            console.log('\x1b[46m');
-            console.log(error);
-            console.log('\x1b[40m');
+            // console.log('\x1b[46m');
+            // console.log(error);
+            // console.log('\x1b[40m');
 
             console.log('');
 
-            res.status(parseInt(error_code)).send({
-                error: error_message,
-                message: errors,
-            });
+            let response: anyObject = {
+                status: error.code,
+                message: error.message,
+                data: errors,
+            };
+
+            if (error.uid) {
+                response.error_trace_id = error.uid;
+            }
+
+            res.status(parseInt(error.code)).send(response);
             return 'log print';
         },
     );
