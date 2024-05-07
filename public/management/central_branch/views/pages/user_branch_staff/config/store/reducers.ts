@@ -61,6 +61,12 @@ export const store_reducers = {
     ) => {
         state.show_active_data = action.payload;
     },
+    set_select_fields: (
+        state: typeof initialState,
+        action: PayloadAction<string>,
+    ) => {
+        state.select_fields = action.payload;
+    },
 
     set_show_filter_canvas: (
         state: typeof initialState,
