@@ -4,6 +4,7 @@ import Footer from './components/management_data_page/Footer';
 import setup from './config/setup';
 import { useAppDispatch } from '../../../store';
 import { store } from './config/store/async_actions/store';
+import DropDown from './components/dropdown/DropDown';
 export interface Props {}
 
 const Create: React.FC<Props> = (props: Props) => {
@@ -44,6 +45,17 @@ const Create: React.FC<Props> = (props: Props) => {
                                         type="text"
                                         placeholder="preferred_name"
                                         name="preferred_name"
+                                    />
+                                </div>
+                            </div>
+                            <div className="form-group form-horizontal">
+                                <label>Select user</label>
+                                <div className="form_elements">
+                                    <DropDown
+                                        get_selected_data={(result) =>
+                                            console.log(result)
+                                        }
+                                        name={`selected_users`}
                                     />
                                 </div>
                             </div>
