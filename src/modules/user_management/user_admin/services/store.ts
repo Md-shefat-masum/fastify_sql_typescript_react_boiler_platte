@@ -8,6 +8,8 @@ import {
 } from '../../../common_types/object';
 import response from '../helpers/response';
 import { InferCreationAttributes } from 'sequelize';
+import custom_error from '../helpers/custom_error';
+import error_trace from '../helpers/error_trace';
 
 async function validate(req: Request) {
     await body('name')
@@ -55,8 +57,9 @@ async function store(
     try {
         (await data.update(inputs)).save();
         return response(200, 'data created', data);
-    } catch (error) {
-        return response(500, 'data creation error', { error });
+    } catch (error: any) {
+        let uid = await error_trace(models, error, req.url, req.body);
+        throw new custom_error('server error', 500, error.message, uid);
     }
 }
 
