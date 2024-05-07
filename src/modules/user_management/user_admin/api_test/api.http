@@ -53,7 +53,7 @@ content-type: application/json
 
 # destroy
 ###
-POST  {{hostname}}/destroy HTTP/1.1
+POST  {{hostname}}/destroys HTTP/1.1
 content-type: application/json
 
 {
