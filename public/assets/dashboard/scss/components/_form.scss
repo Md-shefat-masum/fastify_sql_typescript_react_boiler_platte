@@ -25,7 +25,7 @@
     .form_elements {
         flex: 1;
 
-        * {
+        >* {
             width: 100%;
             display: block;
         }
@@ -43,7 +43,7 @@
     }
 
     .form_elements {
-        * {
+        >* {
             width: 100%;
             display: block;
         }
