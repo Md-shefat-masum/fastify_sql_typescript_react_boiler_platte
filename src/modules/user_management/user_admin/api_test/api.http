@@ -2,11 +2,11 @@
 
 # all
 ###
-GET {{hostname}} HTTP/1.1
+GET {{hostname}}?t=343&d=43d HTTP/1.1
 
 # get
 ###
-GET {{hostname}}/1 HTTP/1.1
+GET {{hostname}}/1343 HTTP/1.1
 
 # store
 ###
@@ -57,5 +57,5 @@ POST  {{hostname}}/destroy HTTP/1.1
 content-type: application/json
 
 {
-    "id": "65125d302cf8f9fc0f49cb86",
+    "id": "45"
 }
