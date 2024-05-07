@@ -18,7 +18,7 @@ export default function (fastify: FastifyInstance) {
     return {
         all: async function (req: FastifyRequest, res: FastifyReply) {
             let data: responseObject = await all(fastify, req);
-            res.code(200).send(data);
+            res.code(data.status).send(data);
         },
 
         find: async function (req: FastifyRequest, res: FastifyReply) {
