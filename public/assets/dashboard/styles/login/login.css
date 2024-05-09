@@ -217,6 +217,7 @@ body {
 #login .login_form .form_content .form_group .buttons button:nth-child(2)::after {
   clip-path: polygon(0px 0px, 100% 0px, calc(100% - 20px) 100%, 0% 100%);
 }
+#login .login_form .form_content .form_group .form_error,
 #login .login_form .form_content .form_group .error {
   color: var(--text_error);
   font-size: 14px;
