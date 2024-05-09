@@ -34,7 +34,9 @@ class DataModel extends Model<Infer, InferCreation> {
     declare name: string;
     declare email: string;
     declare password: string;
-    declare token?: string;
+    declare token?: string | null;
+    declare forget_code?: string | null;
+    declare user_agent?: string | null;
 
     declare status?: number;
 
@@ -64,6 +66,14 @@ function init(sequelize: Sequelize) {
             },
             token: {
                 type: new DataTypes.STRING(100),
+                allowNull: true,
+            },
+            forget_code: {
+                type: new DataTypes.STRING(10),
+                allowNull: true,
+            },
+            user_agent: {
+                type: new DataTypes.STRING(150),
                 allowNull: true,
             },
             status: {
