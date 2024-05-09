@@ -6,6 +6,7 @@ import Fastify, {
 import path from 'path';
 import view from '@fastify/view';
 import { sequelize } from './bootstrap/db.sql';
+import custom_error from './modules/user_management/user_admin/helpers/custom_error';
 
 const AutoLoad = require('@fastify/autoload');
 const underPressure = require('@fastify/under-pressure');
@@ -18,6 +19,37 @@ async function boot() {
     const fastify = Fastify({
         logger: true,
     });
+
+    /** assets middleware */
+    const commonMiddleware = async function (request: FastifyRequest) {
+        const extension = path.extname(request.raw.url as string).toLowerCase();
+
+        if (extension !== '') {
+            if (
+                [
+                    '.ico',
+                    '.jpg',
+                    '.jpeg',
+                    '.png',
+                    '.gif',
+                    '.svg',
+                    '.mp4',
+                    '.webm',
+                    '.pdf',
+                    '.css',
+                    '.js',
+                    '.ttf',
+                    '.woff',
+                    '.woff2',
+                ].includes(extension)
+            ) {
+                return;
+            } else {
+                throw new custom_error('forvidden', 403, 'access forvidden');
+            }
+        }
+        return;
+    };
 
     /** conver input files into buffer string */
     async function onFile(part: any) {
@@ -129,6 +161,7 @@ async function boot() {
             console.log(error);
             (fastify as any).set_log('500', error, res, req);
         })
+        .addHook('onRequest', commonMiddleware as any)
         .addHook('onRequest', async (request, reply) => {
             console.log('-------------');
             console.log('');
