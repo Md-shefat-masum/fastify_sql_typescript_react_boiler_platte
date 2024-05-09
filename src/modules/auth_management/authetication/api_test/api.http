@@ -2,7 +2,7 @@
 
 # login
 ###
-POST  {{hostname}}/login HTTP/1.1
+POST {{hostname}}/login HTTP/1.1
 content-type: application/json
 
 {
@@ -12,6 +12,20 @@ content-type: application/json
 
 # auth user
 ###
-GET  {{hostname}}/info HTTP/1.1
+GET {{hostname}}/info HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidG9rZW4iOiI1ZGFlaHR5eCIsImlhdCI6MTcxNTAyOTE2MH0.ejzgklHYJYtFViazVJLLb8o1lgjfEWeLudVrChJEtgE
+# Cookie: key = value
+
+# forget mail
+###
+POST {{hostname}}/forget HTTP/1.1
+content-type: application/json
+
+{}
+
+# logout
+###
+POST {{hostname}}/logout HTTP/1.1
+content-type: application/json
+
+{}
