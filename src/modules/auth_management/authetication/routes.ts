@@ -23,11 +23,8 @@ module.exports = async function (fastify: FastifyInstance) {
         async (route, opts) => {
             route
                 .addHook('preHandler', check_auth)
-                .get(
-                    `/info`,
-                    { preHandler: check_auth },
-                    controllerInstance.auth_user,
-                );
+                .post(`/logout`, controllerInstance.logout)
+                .get(`/info`, controllerInstance.auth_user);
         },
         { prefix },
     );
