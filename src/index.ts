@@ -7,6 +7,7 @@ import path from 'path';
 import view from '@fastify/view';
 import { sequelize } from './bootstrap/db.sql';
 import custom_error from './modules/user_management/user_admin/helpers/custom_error';
+import type { FastifyCookieOptions } from '@fastify/cookie';
 
 const AutoLoad = require('@fastify/autoload');
 const underPressure = require('@fastify/under-pressure');
@@ -45,7 +46,7 @@ async function boot() {
             ) {
                 return;
             } else {
-                throw new custom_error('forvidden', 403, 'access forvidden');
+                throw new custom_error('not found', 404, 'target not found.');
             }
         }
         return;
@@ -122,7 +123,7 @@ async function boot() {
                 httpOnly: true,
                 secure: true,
             },
-        })
+        } as FastifyCookieOptions)
         .register(underPressure, {
             maxEventLoopDelay: 1000,
             maxHeapUsedBytes: 1000000000000,
@@ -144,16 +145,19 @@ async function boot() {
                 // rep.send('out of memory')
             },
         })
-        .register(view, {
-            engine: {
-                ejs: require('ejs'),
-            },
-            root: path.join(public_dir, 'views'),
-        })
         .register(require('@fastify/static'), {
             root: public_dir,
             prefix: '/',
-        })
+        });
+
+    fastify.register(view, {
+        engine: {
+            ejs: require('ejs'),
+        },
+        root: path.join(public_dir, 'views'),
+    });
+
+    fastify
         .setNotFoundHandler(function (req: FastifyRequest, res: FastifyReply) {
             (fastify as any).set_log('404', {}, res, req);
         })
