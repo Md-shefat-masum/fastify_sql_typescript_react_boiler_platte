@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,16 +64,59 @@
         </div>
     </div>
     <script>
+        axios.interceptors.request.use(
+            function (config) {
+                let form_errors = document.querySelectorAll('.form_error');
+                [...form_errors].forEach((e) => e.remove());
+                let has_errors = document.querySelectorAll('.form_group_error');
+                [...has_errors].forEach((e) => e.classList.remove('form_group_error'));
+
+                return config;
+            },
+            function (error) {
+                return Promise.reject(error);
+            },
+        );
+        axios.interceptors.response.use(
+            function (response) {
+                return response;
+            },
+            function (error) {
+                if (error.response.data.status === 422) {
+                    let errors = error.response.data.data;
+                    errors.forEach((error) => {
+                        let el = document.querySelector(`[name="${error.path}"]`);
+                        if (el) {
+                            (el.parentNode)?.parentNode.classList.add('form_group_error');
+                            (el.parentNode)?.parentNode.insertAdjacentHTML(
+                                'beforeend',
+                                `
+                        <div class="form_error">
+                            ${error.msg}
+                        </div>
+                        `,
+                            );
+                        }
+                    });
+
+                    window.toaster(
+                        `${error.response.status} - ${error.response.statusText}`,
+                    );
+
+                    console.log(error.response);
+                }
+                return Promise.reject(error);
+            },
+        );
         const login = () => {
             event.preventDefault();
-            axios.post("/api/v1/user/dashboard-login",new FormData(event.currentTarget))
-                .then(res=>{
-                    // 
-                    return location.href = "/dashboard";
+            axios.post("/api/v1/auth/login", new FormData(event.currentTarget))
+                .then(res => {
+                    // return location.href = "/dashboard";
                 })
-                .catch(err=>{
-                    let {err_message, data} = err.response.data;
-                    window.toaster(err_message, "error");
+                .catch(err => {
+                    let { message, data } = err.response.data;
+                    window.toaster(message, "error");
                     console.log(data);
                 })
         }
