@@ -30,6 +30,7 @@
         ],
         "import/no-duplicates": "error",
         "no-unused-vars": "off",
+        "no-unreachable": "warn",
         "indent": [
             "error",
             4
