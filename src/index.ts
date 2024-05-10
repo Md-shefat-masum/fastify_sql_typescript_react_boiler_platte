@@ -8,6 +8,7 @@ import view from '@fastify/view';
 import { sequelize } from './bootstrap/db.sql';
 import custom_error from './modules/user_management/user_admin/helpers/custom_error';
 import type { FastifyCookieOptions } from '@fastify/cookie';
+import { app_config } from './configs/app.config';
 
 const AutoLoad = require('@fastify/autoload');
 const underPressure = require('@fastify/under-pressure');
@@ -180,8 +181,10 @@ async function boot() {
         });
 
     try {
-        fastify.listen({ port: 5000 }).then(() => {
-            console.log('Server is running on http://127.0.0.1:5000');
+        fastify.listen({ port: app_config.port }).then(() => {
+            console.log(
+                'Server is running on http://127.0.0.1:' + app_config.port,
+            );
         });
     } catch (err) {
         fastify.log.error(err);
