@@ -1,0 +1,36 @@
+docker build -t fastify-boilerplatte -f Dockerfile .
+
+docker run -i -p 5001:5001 -t fastify-boilerplatte
+
+docker run -d -p 3000:3000 -t fastify-boilerplatte
+
+docker run --name container_name -d -p 5001:5001 image_name
+
+docker ps
+
+docker run --name mysql -p 4306:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql
+
+docker network create my-network
+docker run -d --name mysql-container -p 4307:3307 --network my-network -e MYSQL_ROOT_PASSWORD=1234 mysql
+docker run -d --name fastify-boilerplatte-container --network my-network fastify-boilerplatte
+
+docker run -d --name fastify-boilerplatte-container -p 5002:5002 --network my-network --host host fastify-boilerplatte
+
+winpty docker exec -it 25706cdb54a1 //bin//sh
+
+docker images prune
+
+docker rmi image_id
+
+doker rm container_id
+
+#tool
+
+docker build -t fastify-boilerplatte-tools -f Dockerfile-tools .
+
+# development mode 
+# 1. Generate a Linux version of your node_modules dependencies locally, by generating them inside the node:16 docker image:
+docker run -i -v ${PWD}/package.json:/tmp/package.json -v ${PWD}/node_modules_linux:/tmp/node_modules -w /tmp -t node:16 npm install
+
+# 2. Generate a Linux version of your node_modules dependencies locally, by generating them inside the node:16 docker image:
+docker run -i -p 3000:3000 -v ${PWD}/:/app -v ${PWD}/node_modules_linux:/app/node_modules -t my-nodejs-project-tools /bin/run-dev

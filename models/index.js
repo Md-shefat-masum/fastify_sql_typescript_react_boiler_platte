@@ -13,12 +13,20 @@ let sequelize;
 if (config.use_env_variable) {
     sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-    sequelize = new Sequelize(
-        config.database,
-        config.username,
-        config.password,
-        config,
-    );
+    let db = process?.env.DB_DATABASE || '';
+    let user = process?.env.DB_USER || '';
+    let pass = process?.env.DB_PASS || '';
+    let host = process?.env.DB_HOST || '';
+    let port = process?.env.DB_PORT || '';
+
+    sequelize = new Sequelize(db, user, pass, {
+        host,
+        dialect: 'mysql',
+        port: parseInt(port),
+        dialectOptions: {
+            // Your mysql2 options here
+        },
+    });
 }
 
 fs.readdirSync(__dirname)

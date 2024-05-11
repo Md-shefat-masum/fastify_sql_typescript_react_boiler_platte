@@ -31,7 +31,17 @@ async function validate(req: Request) {
 
     return result;
 }
-
+/**
+ * Performs user login authentication.
+ *
+ * @param fastify_instance - The Fastify instance.
+ * @param req - The Fastify request object.
+ * @returns A promise that resolves to a responseObject containing the authentication result.
+ * @throws If there is a validation error, a custom_error with code 422 and the validation errors is thrown.
+ *         If there is a wrong password, a custom_error with code 422 and a specific error message is thrown.
+ *         If there is a wrong email, a custom_error with code 422 and a specific error message is thrown.
+ *         If there is a server error, a custom_error with code 500 and the error message is thrown.
+ */
 async function login(
     fastify_instance: FastifyInstance,
     req: FastifyRequest,
@@ -54,6 +64,18 @@ async function login(
                     email: body.email,
                 },
             });
+
+            if (!data) {
+                return response(422, 'wrong email', [
+                    {
+                        type: 'field',
+                        value: '',
+                        msg: 'the given email is incorrect',
+                        path: 'email',
+                        location: 'body',
+                    },
+                ]);
+            }
 
             if (data) {
                 let check_pass = await bcrypt.compare(
@@ -84,16 +106,6 @@ async function login(
                         },
                     ]);
                 }
-            } else {
-                return response(422, 'wrong email', [
-                    {
-                        type: 'field',
-                        value: '',
-                        msg: 'the given email is incorrect',
-                        path: 'email',
-                        location: 'body',
-                    },
-                ]);
             }
         }
         return response(201, 'authentication success', { token });

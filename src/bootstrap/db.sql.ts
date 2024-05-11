@@ -18,15 +18,25 @@ export interface sequelize_response {
 export const sequelize = function (): Promise<sequelize_response> {
     return new Promise(async (resolve, reject) => {
         
-        let db = process?.env.DB_DATABASE || '';
-        let user = process?.env.DB_USER || '';
-        let pass = process?.env.DB_PASS || '';
-        let host = process?.env.DB_HOST || '';
+        let db = process.env.DB_DATABASE || '';
+        let user = process.env.DB_USER || '';
+        let pass = process.env.DB_PASSWORD || '';
+        let host = process.env.DB_HOST || '';
+        let port = process.env.DB_PORT || '';
 
         const sequelize: Sequelize = new Sequelize(db, user, pass, {
             host,
             dialect: 'mysql',
-            // logging: console.log,
+            port: parseInt(port),
+            dialectOptions: {
+                // Your mysql2 options here
+            },
+            pool: {
+                max: 10,
+                min: 0,
+                acquire: 30000,
+                idle: 10000,
+            },
         });
 
         try {
